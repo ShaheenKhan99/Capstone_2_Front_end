@@ -1,0 +1,16 @@
+.Navigation {
+  background-color: #9db36b; 
+
+}
+
+.nav-link.active {
+  color: black;
+  font-weight: bold;
+}
+
+.navbar-brand {
+  font-family: 'Roboto', serif;
+  font-size: 8rem; 
+  font-weight: 400; 
+  letter-spacing: 0.1rem;
+}

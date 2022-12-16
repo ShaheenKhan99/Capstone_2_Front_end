@@ -1,0 +1,86 @@
+.SearchYelpBusinesses {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-image: url('../assets/background_img.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 25rem;
+}
+
+.SearchYelpBusinesses-sort-options ul {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+  color: #e3efba;
+  list-style-type: none;
+}
+
+.SearchYelpBusinesses-sort-options li {
+  cursor: pointer;
+  width: 5rem;
+  padding: 0 3rem .25rem 3rem;
+  line-height: 1.2;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color .25s;
+}
+
+.SearchYelpBusinesses-sort-options li:hover {
+  color: #f3d394;
+}
+
+.SearchYelpBusinesses-sort-options li.active,
+.SearchYelpBusinesses-sort-options li.active:hover {
+  color: #dbf246;
+}
+
+.SearchYelpBusinesses-fields {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.SearchYelpBusinesses-fields input {
+  width: 15rem;
+  padding: 0.8rem;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  border: 1px solid #fff;
+  border-radius: 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.SearchYelpBusinesses-fields input:last-child {
+  margin-right: 0;
+}
+
+.SearchYelpBusinesses-search {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+
+@media only screen and (max-width: 560px) {
+  .SearchYelpBusinesses {
+    background-image: url('../assets/background_img.jpg');
+  }
+
+  .SearchYelpBusinesses-sort-options ul {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
+  .SearchYelpBusinesses-fields {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .SearchYelpBusinesses-fields input {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}
+

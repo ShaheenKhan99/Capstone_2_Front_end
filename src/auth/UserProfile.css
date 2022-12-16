@@ -1,0 +1,21 @@
+.UserProfile-container {
+  height: 20rem;  
+}
+
+
+.UserProfileCardBody {
+  background-color: #cad9cc;
+  height: 20rem;
+}
+
+.UserProfile-stats {
+  background-color: #bcc6ba;
+  width: 60%;
+  margin: auto;
+}
+
+.UserProfile-bio {
+  background-color: #bcc6ba;
+  width: 50%;
+  margin: auto;
+}
