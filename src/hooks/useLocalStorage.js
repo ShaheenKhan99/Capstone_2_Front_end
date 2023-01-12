@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 
-/** Custom hoook for keeping state data synced with localStorage. 
+/** Custom hook for keeping state data synced with localStorage. 
  * 
  * This creates `item` as state and look in localStorage for current value. If not found, it defaults to `firstValue`.
  * 
- * When `item` changes, effect re-runs:
+ * When `item` changes, effect reruns:
  * - if new state is null, removes from localStorage
  * - else, updates localStorage
  * 
  * To the component, this just acts like state that is also synced to/from localStorage.
  * 
- * 
+ *
 */
 
 function useLocalStorage(key, firstValue = null) {

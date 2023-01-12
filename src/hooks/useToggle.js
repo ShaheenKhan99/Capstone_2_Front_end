@@ -1,5 +1,10 @@
 import { useState } from 'react';
 
+
+/** Custom hook for toggling state 
+ * This toggles state from true to false and back again. 
+*/
+
 const useToggle = (initialState = true) => {
 
     const [state, setState] = useState(initialState);
@@ -9,4 +14,5 @@ const useToggle = (initialState = true) => {
     }
     return [state, flipState];
 }
+
 export default useToggle;

@@ -1,95 +1,102 @@
-import {  useContext } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import {  useEffect, useContext } from "react";
+import { Container } from "react-bootstrap";
 
+import TripcardsApi from "../api/api";
 import UserContext from "../auth/UserContext";
 import UpdateProfileForm from "./UpdateProfileForm";
 import useToggle from "../hooks/useToggle";
-import TripcardCard from "../tripcards/TripcardCard";
+import TripcardCardList from "../tripcards/TripcardCardList";
 import ReviewCardList from "../reviews/ReviewCardList";
 import UserProfile from "../auth/UserProfile";
-import "./UserPage.css";
 
 
 /** UserPage displays all information about the user 
  * 
- * It shows all tripcards and reviews
+ * It displays user profile, tripcards and reviews
  * 
- * The user can click a button which leads them to update their own profile here
+ * The user can update their own profile and reviews
  * 
  * UserPage -> UserProfile -> UpdateProfileForm
+ * UserPage -> Tripcards -> TripcardDetail
+ * UserPage -> ReviewCardList -> UpdateReview
+ * 
 */
 
-const UserPage = ( updateUser ) => {
-  const { currentUser } = useContext(UserContext);
-  console.debug("currentUser=", currentUser, "currentUser.tripcards=", currentUser.tripcards);
+const UserPage = ( updateUser, updateReview, updateTripcard ) => {
+
+  const { currentUser, 
+          currentUserReviews, 
+          currentUserTripcards,
+          setCurrentUserReviews,
+          setTripcards,
+          tripcards
+           } = useContext(UserContext);
+
+  console.debug("currentUser=", currentUser);
   
   const [isUpdate, setIsUpdate] = useToggle(false);
-  
-  function tripcardsExist() {
 
-    return (
-        <>
-          <Container className="UserTripcards container py-3" >
-            <h5 className="mt-5">Tripcards for {currentUser.username}</h5>
-            
-              <Row className="UserTripcards-row row-cols-1 row-cols-md-3 h-2 g-4 ">
-                {currentUser.tripcards.map((tripcard) => {
-                      return (
-                            <Col>
-                                <TripcardCard key={tripcard.id}
-                                              id={tripcard.id}
-                                              user_id={tripcard.user_id}
-                                              destination_id={tripcard.destination_id}
-                                              username={tripcard.username}
-                                              city={tripcard.city}
-                                              state={tripcard.state}
-                                              country={tripcard.country}
-                                              keep_private={tripcard.keep_private}
-                                              created_on={tripcard.created_on}
-                                  />
-                              </Col>
-                             )
-                    })}
-              </Row>
-          </Container>
-    </>
-    )
-  };
+
+  useEffect(function getUserTripcardsAndReviews() {
+    async function getTripcardsAndReviewsForUser() {
+      setTripcards(await TripcardsApi.getTripcardsByUserID(currentUser.id));
+      setCurrentUserReviews(await TripcardsApi.getReviewsByUser(currentUser.id));
+    }
+    getTripcardsAndReviewsForUser();
+  }, [currentUser, setTripcards, setCurrentUserReviews]);
+
   
- 
   return (
-    <>
-    <UserProfile />
+          <>
+            <UserProfile />
 
-      <div>
-        {isUpdate ? <UpdateProfileForm 
-                          updateUser={updateUser}
-                          setIsUpdate={setIsUpdate}
-                    />
-         : null }
-      </div>
-
-
-      <div className="UserTripcards-list mt-2 text-center">
-          {currentUser.tripcards.length ? 
-              tripcardsExist() : 
-              <p>No tripcards yet!</p> 
-          }   
-      </div>
+              <div>
+                {isUpdate ? <UpdateProfileForm 
+                                        updateUser={updateUser}
+                                        setIsUpdate={setIsUpdate}
+                            />
+                : null }
+              </div>
 
 
-      <Container>    
-        <h5 className="mt-5 mb-3 text-center">Reviews by {currentUser.username}</h5>
-          {currentUser.reviews ? 
-              <ReviewCardList reviews={currentUser.reviews} /> 
-            :  
-              <p>No reviews yet!</p>
-        }
-      </Container> 
+              <Container className="UserTripcards-list mt-5">
+                {currentUserTripcards ? 
+                    (
+                      <>
+                          <h5 className="mt-2 text-center" style={{ 'color': '#450b45' }}>Tripcards for {currentUser.username}</h5>
+                            
+                          <TripcardCardList tripcards={tripcards}
+                                            updateTripcard={updateTripcard} /> 
+                        </>
+                  )
+                  : 
+                    <div>
+                      <h5 className="text-center" style={{ color: '#450b45' }}>No tripcards yet!</h5>
+                    </div>
+                }   
+              </Container>
 
-    </>
-     
-)}
+
+              <Container className="mt-3 p-2">    
+                {currentUserReviews.length ? 
+                    (
+                      <>
+                        <h5 className="mt-4 text-center" style={{ color: '#450b45' }}>Reviews by {currentUser.username}</h5>
+                          
+                        <ReviewCardList reviews={currentUserReviews}
+                                        updateReview={updateReview} /> 
+                      </>
+                    )
+                  :  
+                    <div className="text-center" >
+                      <h5 className="mt-5 mb-3 text-center" style={{ color: '#450b45' }}>No reviews yet!</h5>
+                    </div>
+                }
+              </Container> 
+
+          </>     
+      )
+  }
 
 export default UserPage;
 

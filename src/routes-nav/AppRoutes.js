@@ -1,9 +1,8 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Homepage from "../homepage/Homepage";
-import DestinationList from "../destinations/DestinationList";
 
 import SearchYelpBusinesses from "../yelpbusinesses/SearchYelpBusinesses";
-import YelpBusinessDetail from "../yelpbusinesses/YelpBusinessDetail";
+import YelpBusinessPage from "../yelpbusinesses/YelpBusinessPage";
 import YelpBusinessReviews from "../yelpbusinesses/YelpBusinessReviews";
 
 import SignupForm from "../auth/SignupForm";
@@ -12,24 +11,27 @@ import UpdateProfileForm from "../auth/UpdateProfileForm";
 import UserPage from "../auth/UserPage";
 
 import BusinessList from "../businesses/BusinessList";
-import BusinessDetail from "../businesses/BusinessDetail";
+import BusinessPage from "../businesses/BusinessPage";
 import AddReviewForm from "../reviews/AddReviewForm";
+import UpdateReviewForm from "../reviews/UpdateReviewForm";
 
 import UpdateTripcardForm from "../tripcards/UpdateTripcardForm";
 import TripcardList from "../tripcards/TripcardList";
-import TripcardDetail from "../tripcards/TripcardDetail";
-import Tripcardbusinesses from "../tripcards/Tripcardbusinesses";
+import TripcardPage from "../tripcards/TripcardPage";
+import TripcardBusinesses from "../tripcards/TripcardBusinesses";
 
 import PrivateRoute from './PrivateRoute';
+import NotFound from "../NotFound";
+
 
 /** Site-wide routes.
  * 
  * Parts of site should only be visible when logged in. Those routes are wrapped by <PrivateRoute> which is an authorization component.
  * 
- * Visiting a non-existent route redirects to the homepage
+ * Visiting a non-existent route redirects to the Not Found page
  */
 
-const AppRoutes = ({ login, signup, tripcard, businesses }) => {
+const AppRoutes = ({ login, signup, tripcard }) => {
 console.debug("Routes", `login=${typeof login}`,
                         `signup=${typeof signup}}`
                       );
@@ -74,28 +76,23 @@ console.debug("Routes", `login=${typeof login}`,
                     />
 
                     <Route path="/tripcards/:id"
-                           element={ <PrivateRoute>
-                                      <TripcardDetail tripcard={tripcard} />
+                           element={<PrivateRoute>
+                                      <TripcardPage tripcard={tripcard} />
                                      </PrivateRoute>}
                     />
 
                     <Route path="tripcards/:id/businesses"
                            element={ <PrivateRoute>
-                                       <Tripcardbusinesses />
+                                       <TripcardBusinesses />
                                      </PrivateRoute>}
                       />
 
                     <Route path="tripcards/:id/delete/:business_id"
                            element={ <PrivateRoute>
-                                        <Tripcardbusinesses />
+                                        <TripcardBusinesses />
                                      </PrivateRoute>}
                     />    
                       
-                    <Route path="/destinations"
-                          element={
-                                      <DestinationList />
-                                   }                          
-                    />
 
                     <Route path="/businesses"
                           element={<PrivateRoute>
@@ -109,32 +106,38 @@ console.debug("Routes", `login=${typeof login}`,
                                     </PrivateRoute>}
                     />
 
+                     <Route path="/reviews/:id/update"
+                            element={<PrivateRoute>
+                                      <UpdateReviewForm />
+                                    </PrivateRoute>}
+                    />
+
                     <Route path="/businesses/:id"
                            element={<PrivateRoute>
-                                      <BusinessDetail />
+                                      <BusinessPage />
                                     </PrivateRoute>}
                     />                 
 
                     <Route path="api/businesses/:yelp_id/reviews"
-                          element={
+                           element={
                                     <YelpBusinessReviews />
-                                  }
+                                   }
                     />
 
                     <Route path="api/businesses/:yelp_id"
-                           element={
-                                    <YelpBusinessDetail />
-                                    }
+                           element={<PrivateRoute>
+                                          <YelpBusinessPage />
+                                   </PrivateRoute>}
                     />        
 
                     <Route path="api/businesses/search"
                            element={
-                                      <SearchYelpBusinesses />
+                                    <SearchYelpBusinesses />
                                     }
                     />                         
         
                     <Route path="*"
-                          element={<Navigate to="/" />}
+                          element={<NotFound />}
                     />
         
                   </Routes>

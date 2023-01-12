@@ -2,9 +2,9 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 
-import Alert from "../common/Alert";
 import TripcardsApi from "../api/api";
 import UserContext from "../auth/UserContext";
+import Alert from "../common/Alert";
 import useTimedMessage from "../hooks/useTimedMessage";
 
 
@@ -100,13 +100,17 @@ const UpdateProfileForm = () => {
     setFormErrors([]);  
   }
 
+
   /** Handle delete profile  */
 
   const handleDelete= (evt) => {
     evt.preventDefault();
+
     let username = formData.username;
+
     try {
       if(window.confirm(`Are you sure you would like to delete your profile ${username}?`)) {
+        
         TripcardsApi.deleteUser(currentUser.id);
         setSaveConfirmed(true);
         setCurrentUser(false);
@@ -119,10 +123,11 @@ const UpdateProfileForm = () => {
     setFormErrors([]); 
   }
 
+  
   return (
     <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4 mt-4">
-      <h4 className="text-center mb-3">Profile for {currentUser.username}</h4>
-      <Card className="card" style={{ backgroundColor: '#cad9cc'}}>
+      <h5 className="text-center mb-3" style={{ color: "#450b45"}}>Profile for {currentUser.username}</h5>
+      <Card className="card" style={{ backgroundColor: '#C1C8E4'}}>
         <Card.Body className="card-body">
           <form onSubmit={handleSubmit}>
 
@@ -166,6 +171,7 @@ const UpdateProfileForm = () => {
                         type="text-area"
                         className="form-control"
                         value={formData.bio}
+                        placeholder="Enter bio"
                         onChange={handleChange}
                       />
             </div>
@@ -177,6 +183,7 @@ const UpdateProfileForm = () => {
                         className="form-control"
                         value={formData.password}
                         onChange={handleChange}
+                        required
                       />
             </div>
 

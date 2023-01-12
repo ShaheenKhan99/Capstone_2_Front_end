@@ -1,24 +1,32 @@
-.BusinessCard {
-  color: inherit;
+.BusinessCard-card {
+  color: #450b45;
   border-radius: 0;
-  text-decoration: none;
   border: none;
+  height: 100%;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
-.BusinessCard-categoryName {
-  text-transform: capitalize;
-}
 
-
-.BusinessCard:hover {
-  text-decoration: none;
+.BusinessCard-card:hover {
   box-shadow: 0 3px 6px rgba(255, 255, 255, 0.16),
     0 3px 6px rgba(255, 255, 255, 0.23);
 }
 
 .BusinessCard-image {
-  height: 40vh;
+  height: 30%;
   width: 100%;
   object-fit: cover;
 }
+
+
+.BusinessCard-category {
+  text-transform: capitalize;
+}
+
+.BusinessCard-address {
+  line-height: 0.5cm;
+}
+
+
+
+

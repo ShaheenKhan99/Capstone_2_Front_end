@@ -1,16 +1,16 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
 
 import Alert from "../common/Alert";
-import UserContext from "./UserContext";
+
 
 /** Signup form.
  * 
  * Shows form and manages update to state on changes.
  * On submission:
  * - calls signup function prop
- * - redirects to /companies route
+ * - redirects to homepage route
  * 
  * Routes -> SignupForm -> Alert
  * 
@@ -18,9 +18,9 @@ import UserContext from "./UserContext";
  */
 
 const SignupForm = ({ signup }) => {
+
   const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState([]);
-  const { currentUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
                                     username: "",
                                     password: "",
@@ -29,23 +29,14 @@ const SignupForm = ({ signup }) => {
                                     email: ""
                                 });
 
-  console.debug("SignupForm", 
-                "signup=", 
-                typeof signup, 
-                "currentUser=",
-                currentUser,
-                "formData=", 
-                formData, 
-                "formErrors", 
-                formErrors);
-
 
   /** Handle form submit:
-   * Calls signup func prop and, if successful, redirect to /destinations.
+   * Calls signup func prop and, if successful, redirect to /homepage.
    */
 
   async function handleSubmit(evt) {
     evt.preventDefault();
+
     let result = await signup(formData);
     
       if (result.success) {
@@ -55,6 +46,7 @@ const SignupForm = ({ signup }) => {
       }
   }
 
+  
   /** Update form data field  */
 
   function handleChange(evt) {
@@ -67,9 +59,9 @@ const SignupForm = ({ signup }) => {
   return (
     <div className="SignupForm">
       <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-        <h3 className="mb-3 text-center">Sign Up</h3>
+        <h5 className="mb-3 text-center" style={{ color: "#450b45"}}>Sign Up</h5>
         <Card className="card">
-          <Card.Body className="card-body">
+          <Card.Body className="card-body" style={{ backgroundColor: '#C1C8E4' }}>
             <form onSubmit={handleSubmit}>
               <div className="form-group mb-2">
                 <label className="label" htmlFor="username">Username</label>
@@ -115,14 +107,14 @@ const SignupForm = ({ signup }) => {
 
               {formErrors.length ? 
                   <Alert type="danger"
-                    messages={["Incorrect username or password. Please try again"]} />
+                    messages={[formErrors]} />
                   : null } 
 
 
               <div className="d-grid gap-2 d-md-flex justify-content-md-end">
               <Button type="submit" 
                         variant="primary"
-                        size="lg"
+                        size="md"
                         onSubmit={handleSubmit}>
                   Submit
                 </Button>

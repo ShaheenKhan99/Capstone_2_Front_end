@@ -28,16 +28,12 @@ const getStars = business => {
 };
 
 
-// Format review date into Month, Day Year
-// Input format: "2019-05-26 18:54:30"
-const formatReviewDate = date =>
-  moment(date, 'YYYY-MM-DD HH:mm:ss').format('MMM DD, YYYY');
+/** Formats date into Month, Day, Year
+ * Input format: "2022-12-01T01:51:07.802Z"
+ * 
+*/
 
-
-// Format created_on date for tripcard into Month, Day, Year
-// Input format: "2022-12-01T01:51:07.802Z"
-const formatCreatedOnDate = date =>  
+const formatDate = date =>  
   moment(date, "YYYY-MM-DD hh:mm:ss+ZZ").format("MMMM DD YYYY");
 
-
-export { getStars, formatReviewDate, formatCreatedOnDate };
+export { getStars, formatDate };

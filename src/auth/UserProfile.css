@@ -1,21 +1,38 @@
 .UserProfile-container {
-  height: 20rem;  
+  height: 25%;  
 }
 
 
 .UserProfileCardBody {
-  background-color: #cad9cc;
-  height: 20rem;
+  background-color: #34b3f3;
+  height: 25%;
+  
+}
+
+.UserProfile-Username {
+  color: white;
+}
+
+.UserProfile-fullname {
+  color: white;
 }
 
 .UserProfile-stats {
-  background-color: #bcc6ba;
+  color: white;
   width: 60%;
   margin: auto;
+  padding: 2rem;
+}
+
+.UserProfile-About {
+  color: white;
 }
 
 .UserProfile-bio {
-  background-color: #bcc6ba;
+  border: 1px solid white;
+  color: white;
   width: 50%;
   margin: auto;
+  padding: 2rem;
+  border-radius: 10px;
 }

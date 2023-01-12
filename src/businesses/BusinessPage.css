@@ -1,0 +1,14 @@
+.BusinessCard-card {
+ color: #450b45;
+ height: 100%;
+}
+
+
+.BusinessCard-image {
+  height: 60vh;
+  width: 100%;
+}
+
+.BusinessCard-categoryName {
+  text-transform: capitalize;
+}

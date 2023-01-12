@@ -1,52 +1,62 @@
 import { Link } from "react-router-dom";
-import { Card, Row, Col } from 'react-bootstrap';
-import { getStars } from '../common/Helpers';
+import { Container, Row, Col } from "react-bootstrap";
 
-import "./Tripcardbusinesses.css";
+import BusinessCard from "../businesses/BusinessCard";
 
-/** Shows limited information about a business on a tripcard
+
+/** Shows limited information about a business saved on a tripcard
  * 
- * Is rendered by TripcardDetail to show a "card" for each business.
+ * Is rendered by TripcardPage to show a "card" for each business.
  * 
- * TripcardDetail -> Tripcardbusinesses
+ * TripcardPage -> TripcardBusinesses
  * 
  */
 
-const Tripcardbusinesses = ({ tripcardbusinesses }) => {
+const TripcardBusinesses = ({ businesses }) => {
 
   return (
-            tripcardbusinesses.map((tripcardbusiness) => (
-              <Link className="BusinessCard card mb-3" 
-                        to={`/businesses/${tripcardbusiness.id}`}
-                        key={tripcardbusiness.id}>
-                <Card className="Tripcardbusiness-card" key={tripcardbusiness.id}>
-                  <Card.Body className="card-body">
-                    <Row> 
-                      <Col sm={6}>
-                        <Card.Img variant="top" 
-                              className="Business-image"
-                              src={tripcardbusiness.image_url} />
-                      </Col>
+          <Container className="mt-4">
+            <Row className="BusinessList-row row-flex gy-4">
+              
+              {businesses.map(business => (
+                
+              
+                <Col md={6}  className="YelpBusiness-col">
 
-                      <Col sm={6} className="px-2">
-                        <Card.Title className="card-title">
-                          {tripcardbusiness.business_name} 
-                        </Card.Title>
-                        <Card.Text>{tripcardbusiness.city}  {tripcardbusiness.state} {tripcardbusiness.country}</Card.Text>
-                        <Card.Text>CategoryName: {tripcardbusiness.categoryName}</Card.Text>
+              <Link className="tripcardBusinessCard-card" 
+                    to={`/businesses/${business.id}`}
+                    key={business.id}
+                    style={{ textDecoration: "none" }}>
 
-                        <div className="BusinessYelpDetail-starRating">
-                          <img src={getStars(tripcardbusiness)} alt="star rating" />
-                        </div>
-                  
-                      </Col>
-                    </Row> 
-                  </Card.Body>
-                </Card>
+                <BusinessCard key={business.id}
+                                  id={business.id}
+                                  yelp_id={business.yelp_id}
+                                  business_name={business.business_name}
+                                  address1={business.address1}
+                                  address2={business.address2}
+                                  city={business.city}
+                                  state={business.state}
+                                  country={business.country}
+                                  zip_code={business.zip_code}
+                                  latitude={business.latitude}
+                                  longitude={business.longitude}
+                                  phone={business.phone}
+                                  image_url={business.image_url}
+                                  url={business.url}
+                                  rating={business.rating}
+                                  review_count={business.yelpreview_count}
+                                  category_name={business.category_name}
+                                  category_id={business.category_id}
+                                  destination_id={business.destination_id}
+                      /> 
               </Link>
-          ))
+
+           </Col> 
+          ))}
+        </Row>
+      </Container>
   );
 }
 
-export default Tripcardbusinesses;
+export default TripcardBusinesses;
 

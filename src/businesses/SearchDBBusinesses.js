@@ -3,7 +3,13 @@ import { Container, Button } from "react-bootstrap";
 import "./SearchDBBusinesses.css";
 
 
-// SearchDBBusinesses provides a form that a user can use to search for user saved businesses by category and city.
+/** SearchDBBusinesses provides a form that a user can use to search for user saved businesses in the database by category and city. 
+ * 
+ * Is rendered by BusinessList 
+ * 
+ * BusinessList -> SearchDBBusinesses
+ * 
+*/
 
 const SearchDBBusinesses = (props)  => {
   const [category_name, setCategoryName] = useState("");
@@ -19,18 +25,21 @@ const SearchDBBusinesses = (props)  => {
   
   // Pass current state when user submits search button
   const handleSearch = (e) => {
-      e.preventDefault();
-      props.searchDB(category_name, city);
+    e.preventDefault();
+
+    
+    // take care of accidentally trying to search for just spaces
+    props.searchDB(category_name.trim() || undefined, city.trim() || undefined);
   };
 
   return (
           <Container className="SearchDBBusinesses">
             <div className="SearchDBBusinesses-fields">
               <input className="form-control form-control-md"
-                      placeholder="Hotels, restaurants, parks... " 
+                      placeholder="Enter a category" 
                       onChange={handleCategoryNameChange} />
 
-              <input placeholder="Where?" 
+              <input placeholder="Enter a city" 
                    onChange={handleCityChange} />
             </div>
 

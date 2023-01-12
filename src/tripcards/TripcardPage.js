@@ -4,25 +4,27 @@ import { Container, Row, Col, Card, Button, Alert } from "react-bootstrap";
 
 import TripcardsApi from "../api/api";
 import UserContext from "../auth/UserContext";
-import Tripcardbusinesses from "./Tripcardbusinesses";
+import TripcardBusinesses from "./TripcardBusinesses";
 import UpdateTripcardForm from "./UpdateTripcardForm";
 import useToggle from "../hooks/useToggle";
-import { formatCreatedOnDate } from '../common/Helpers';
+import { formatDate } from '../common/Helpers';
 import LoadingSpinner from "../common/LoadingSpinner";
-import "./TripcardDetail.css";
+import "./TripcardPage.css";
 
-/** Tripcard Detail page
+
+/** TripcardPage 
  * 
  * Renders information about tripcard including businesses saved on tripcard.
  * 
- * Renders upddateTripcard form to edit or button to delete the tripcard 
+ * Renders updateTripcard Form to edit tripcard or a button to delete the tripcard if currentUser is tripcard owner
  * 
  * Routed at /tripcards/:id
  * 
- * Routes -> TripcardCard -> TripcardDetail
+ * Routes -> TripcardCard -> TripcardPage
  */
 
-const TripcardDetail = ( updateTripcard ) => {
+const TripcardPage = ( updateTripcard ) => {
+
   const { id } = useParams();
 
   const { currentUser, removeTripcard } = useContext(UserContext);
@@ -30,7 +32,7 @@ const TripcardDetail = ( updateTripcard ) => {
   console.debug("TripcardDetail", "id=", id);
 
   const [tripcard, setTripcard] = useState();
-  const [tripcardbusinesses, setTripcardbusinesses] = useState([]);
+  const [businesses, setBusinesses] = useState([]);
 
   const [isUpdate, setIsUpdate] = useToggle(false);
   const [deleteTripcard, setDeleteTripcard] = useState()
@@ -41,20 +43,23 @@ const TripcardDetail = ( updateTripcard ) => {
   useEffect(function getTripcardAndBusinessesForUser() {
     async function getTripcard() {
       setTripcard(await TripcardsApi.getTripcard(id));
-      setTripcardbusinesses(await TripcardsApi.getTripcardBusinesses(id));
+      setBusinesses(await TripcardsApi.getTripcardBusinesses(id));
     }
     getTripcard();
   }, [id]);
 
   if (!tripcard) return <LoadingSpinner />;
 
-  // Handle updateTripcard click
+
+  /** Handles updateTripcard click - renders form to update tripcard */
+
   async function handleUpdateClick(evt){
     evt.preventDefault();
     setIsUpdate(true);
   } 
 
-  // Handle deleteTripcard click
+  /** Handles deleteTripcard click */
+
   async function handleDeleteClick(evt) {
     evt.preventDefault()
     setDeleteTripcard(await removeTripcard(evt, id));
@@ -62,15 +67,14 @@ const TripcardDetail = ( updateTripcard ) => {
     setDeleted(true);
   }
 
-
   return (
-      <> 
-        <div>
-          <Container className="container py-1" style={{ height: '25%' }}>
-                <Card className="TripcardDetail-card">
-                  <Card.Body className="TripcardDetail-cardbody text-center">
+      <div>
+    
+          <Container className="container p-4" style={{ height: '25%' }}>
+                <Card className="TripcardPage-card">
+                  <Card.Body className="TripcardPage-cardbody text-center">
                     <Row>
-                      <div className="BusinessDetail-deletedAlert mb-2">
+                      <div className="TripcardPage-deletedAlert mb-2">
                         {deleted ? 
                           <Alert variant="danger">
                             <Alert.Link href="/"> Deleted!    Explore other places</Alert.Link> 
@@ -79,38 +83,45 @@ const TripcardDetail = ( updateTripcard ) => {
                         } 
                         </div>
 
-                        <Col sm="9">
-                          <Card.Title>Tripcard for {tripcard.city} </Card.Title>
-                          <Card.Text className="mb-3 text-muted">
-                           {tripcard.state}  {tripcard.country}
+                        <Col sm={4}>
+                          <Card.Title className="mt-4">Tripcard for {tripcard.city}  </Card.Title>
+                            <Card.Subtitle>
+                            {tripcard.state}  {tripcard.country}
+                            </Card.Subtitle>
+                        </Col>
+                        <Col sm={5}>
+                            <Card.Text className="mt-3">
+                            Username: {tripcard.username} 
                             </Card.Text>
-                            <Card.Text className="mb-3">
-                            username: {tripcard.username} 
-                            </Card.Text>
-                            <Card.Text className="mb-3">Created on: {formatCreatedOnDate(tripcard.createdOn)}</Card.Text>
+                            <Card.Text className="mb-3">Created on: {formatDate(tripcard.created_on)}</Card.Text>
                         </Col>
 
-                        <Col sm="3">
+                        <Col sm={3}>
+                          
+                          {currentUser.id == tripcard.user_id ? 
+                          <>
                           <div className="pb-2 mb-4 mt-2">
-                              <Button variant="outline-dark" 
+                              <Button variant="outline-light" 
                                       onClick={handleUpdateClick}>
                                     Edit
                               </Button>
                           </div>
 
                           <div>
-                              <Button variant="outline-danger" 
+                              <Button variant="outline-light" 
                                       disabled={buttonDisabled}
                                       onClick={handleDeleteClick}>
                                     Delete
                               </Button>
                           </div>
+                          
+                        </>
+                        : null }
                         </Col>
                     </Row>
                   </Card.Body>
                 </Card>
           </Container>
-        </div>
 
         <div className="updateTripcardForm">
           {isUpdate ? <UpdateTripcardForm 
@@ -122,20 +133,20 @@ const TripcardDetail = ( updateTripcard ) => {
                   /> : null }
         </div>
 
-
-        <Container className="Tripcardbusinesses-section">
-          <h5 className="mt-3 mb-2 p-4 text-center">Saved Places</h5> 
-            {tripcard.tripcardbusinesses.length ? 
+      
+        <Container className="TripcardBusinesses-section p-4">
+          <h5 className="text-center">My saved places</h5> 
+            {tripcard.tripcardBusinesses.length ? 
               ( 
-               <Tripcardbusinesses tripcardbusinesses={tripcardbusinesses}
+               <TripcardBusinesses businesses={businesses}
                 />
               )
             : 
-              <p className="mb-2 p-3 text-center">No places saved yet!</p>}
+              <h5 className="mb-2 p-3 text-center" style={{ "color": "#450b45" }}>No places saved yet!</h5>}
         </Container>
-
-    </>
+      
+    </div>
   );
 }
 
-export default TripcardDetail;
+export default TripcardPage;

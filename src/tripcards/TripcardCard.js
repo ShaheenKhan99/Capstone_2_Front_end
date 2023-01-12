@@ -1,40 +1,40 @@
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 
-import { formatCreatedOnDate } from "../common/Helpers";
+import { formatDate } from "../common/Helpers";
 import "./TripcardCard.css";
 
  
-/** Shows limited information about a tripcard
+/** Shows information about a tripcard
  * 
- * Is rendered by TripcardList to show a "card" for each tripcard. Card is a link to details about the tripcard
+ * Is rendered by TripcardCardList to show a "card" for each tripcard. Card is a link to details about the tripcard on TripcardPage
  * 
- * TripcardList -> TripcardCard
+ * TripcardList -> TripcardCardList -> TripcardCard -> TripcardPage
  */
 
-function TripcardCard({ id, 
-                        destination_id, 
-                        user_id, 
-                        username, 
-                        city, 
-                        state, 
-                        country, 
-                        created_on, 
-                        keep_private, 
-                        has_visited                        
-                        }) {
+function TripcardCard(tripcard) {
+
   console.debug("TripcardCard",
-                 "id=", id);
+                 "id=", tripcard.id);
+
   
   return (
-            <Link className="TripcardCard-link" to={`/tripcards/${id}`} type="CreateTripcard" key={id}>
+            <Link className="TripcardCard-link" 
+                  to={`/tripcards/${tripcard.id}`} 
+                  type="CreateTripcard" 
+                  key={tripcard.id}
+                  >
               <Card className="TripcardCard-card text-center">
                   <Card.Body className="TripcardCard-cardbody">
-                    <Card.Title>{city} </Card.Title>
-                      <Card.Text className="text-muted">{state}{' '} {country} </Card.Text>
-                      <Card.Text >Username:  {username} </Card.Text>
-                      <Card.Text>Created: {formatCreatedOnDate(created_on)}</Card.Text>
-                  </Card.Body>   
+
+                    <Card.Title className="TripcardCard-title">{tripcard.city} </Card.Title>
+
+                      <Card.Text>{tripcard.state}{' '} {tripcard.country} </Card.Text>
+
+                      <Card.Text className="TripcardCard-username">Username:  {tripcard.username} </Card.Text>  
+
+                  </Card.Body>  
+                  <Card.Footer style={{ color: "#450b45" }}>Created: {formatDate(tripcard.created_on)}</Card.Footer> 
                 </Card> 
             </Link>          
         );

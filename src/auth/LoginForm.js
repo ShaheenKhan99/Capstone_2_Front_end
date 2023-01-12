@@ -18,11 +18,10 @@ import Alert from "../common/Alert";
  */
 
 const LoginForm = ({ login }) => {
+
   const navigate = useNavigate();
   
   const [formErrors, setFormErrors] = useState([]);
-
-  const [showError, setShowError] = useState(false);
 
   const [formData, setFormData] = useState({ 
                                             username: "",
@@ -43,45 +42,43 @@ const LoginForm = ({ login }) => {
                   currentUser
                   );
 
-  if(currentUser) {
-  return <Navigate to="/" />;
+  if (currentUser) {
+    return <Navigate to="/" />;
   }
 
   /** Handle form submit:
-   * Calls login func prop and, if successful, redirect to profile page.
+   * Calls login func prop and, if successful, redirect to home page.
    */
 
   async function handleSubmit(evt) {
     evt.preventDefault();
+
     let result = await login(formData);
     
     if (result.success) {
-      navigate("/profile");
+      navigate("/");
     } else {
-      setFormErrors(result.errors);
-      setShowError(true);
+      setFormErrors(result.errors);  
     }
   }
 
+  
   /** Update form data field as input is entered by user */
 
   function handleChange(evt) {
     const { name, value } = evt.target;
 
     setFormData(data => ({ ...data, [name]: value }));
+    setFormErrors([]);
   }
 
   return (
         <div className="LoginForm">
           <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-            <h3 className="mb-3 text-center">Log In</h3>
-            {showError ?
-              <Alert type="danger"
-                messages={["Incorrect username or password. Please try again"]} />
-              : null }
-
-            <Card className="card">
-              <Card.Body className="card-body">
+            <h5 className="mb-3 text-center" style={{ color: "#450b45" }}>Welcome!</h5>
+            
+            <Card className="card" style={{ backgroundColor: '#C1C8E4' }}>
+              <Card.Body className="card-body" >
                 <form onSubmit={handleSubmit}>
                   <div className="form-group mb-3">
                     <label className="label" htmlFor="username">Username</label>
@@ -107,7 +104,8 @@ const LoginForm = ({ login }) => {
                       </div>
 
                       {formErrors.length ? 
-                        <Alert type="danger" message={formErrors} /> : null}
+                        <Alert type="danger"
+                        messages={[formErrors]} /> : null}
 
                       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                         <Button type="submit" 

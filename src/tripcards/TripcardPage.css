@@ -1,0 +1,9 @@
+.TripcardPage-cardbody { 
+  border-radius: 0;
+  background-color: #8860D0;  
+  align-items: center;
+}
+
+.TripcardPage-card {
+  color: white;
+}

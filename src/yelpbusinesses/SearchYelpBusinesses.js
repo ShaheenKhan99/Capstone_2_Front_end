@@ -1,70 +1,44 @@
 import { useState } from "react";
 import { Container, Button } from "react-bootstrap";
+
 import "./SearchYelpBusinesses.css";
 
 
-// SearchYelpBusinesses provides a form that a user can use to search for businesses.
+/** SearchYelpBusinesses provides a form that a user can use to search for businesses sourced by YelpApi. 
+ * 
+ * It is rendered by the homepage
+*/
 
 const SearchYelpBusinesses = (props) => {
   const [term, setTerm] = useState("");
   const [location, setLocation] = useState("");
-  const [sortBy, setSortBy] = useState("best_match");
   
-  const sortByOptions = {
-    "Best Match": "best_match",
-    "Highest Rated": "rating",
-    "Most Reviewed": "review_count"
-  }
-
-  // used to check if sort by option link is active
-  const getSortByClass = 
-                  sortByOption => sortBy === sortByOption ? "active" : "";
-
-  // sets state of a sorting option 
-  const handleSortByClick = sortByOption => setSortBy(sortByOption);
-
   // sets state of the term on change
   const handleTermChange = e => setTerm(e.target.value);
 
   // sets state of the location on change
   const handleLocationChange = e => setLocation(e.target.value);
 
-  // return li tag with each key of the sortByOptions object
-  const renderSortByOptions = () => Object.keys(sortByOptions)
-                      .map(sortByOption => {
-                      const sortByOptionValue = sortByOptions[sortByOption];
-                      return (
-                        <li key={sortByOptionValue}
-                            className={getSortByClass(sortByOptionValue)}
-                            onClick={() => handleSortByClick(sortByOptionValue)}> 
-                              {sortByOption}
-                        </li>
-                      );
-                   });
-
   // Pass current state when user submits search button
   const handleSearch = (e) => {
       e.preventDefault();
-      props.searchYelp(term, location, sortBy);
+      props.searchYelp(term, location);
   };
 
+  
   return (
         <Container className="SearchYelpBusinesses">
-          <div className="SearchYelpBusinesses-sort-options">
-            <ul>
-              { renderSortByOptions() }
-            </ul>
-          </div>
 
-          <div className="SearchYelpBusinesses-fields">
+          <div className="SearchYelpBusinesses-fields text-center">
             <input className="form-control form-control-md"
-                    placeholder="Hotels, restaurants, parks... " 
+                    placeholder="Enter a category" 
                     onChange={handleTermChange} />
-            <input placeholder="Where to?" 
+            <input  className="form-control form-control-md"
+                    placeholder="Enter a city" 
                    onChange={handleLocationChange} />
           </div>
 
-          <div className="SearchYelpBusinesses-search">
+          <div className="SearchYelpBusinesses-search text-center">
             <Button variant="light"
                       size="lg" 
                       type="submit"

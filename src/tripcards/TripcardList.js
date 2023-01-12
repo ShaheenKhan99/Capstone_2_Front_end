@@ -1,17 +1,19 @@
-import { useState, useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { Container } from "react-bootstrap";
+
 import TripcardsApi from "../api/api";
-import SearchForm from "../common/SearchForm";
+import SearchTripcards from "./SearchTripcards";
 import TripcardCardList from './TripcardCardList';
 import LoadingSpinner from "../common/LoadingSpinner";
+import UserContext from "../auth/UserContext";
 
 
-/** Show page with list of tripcards
+/** Shows list of tripcards that are not private
  * 
  * On mount, loads tripcards from API.
  * Re-loads filtered tripcards on submit from search form.
  * 
- * TripcardList -> TripcardCard -> TripcardDetail
+ * TripcardList -> TripcardCardList -> TripcardCard
  * 
  * This is routed to at /tripcards
  */
@@ -19,40 +21,48 @@ import LoadingSpinner from "../common/LoadingSpinner";
 const TripcardList = () => {
   console.debug("TripcardList");
 
-  const [tripcards, setTripcards] = useState(null);
-
-
+  const { tripcards, setTripcards } = useContext(UserContext);
+ 
   useEffect(function getAllTripcardsOnMount() {
     console.debug("TripcardList useEffect getAllTripcardsOnMount");
-    search();
+    searchDBForTripcards();
   }, []);
     
 
   /** Triggered by search form submit, reloads tripcards */
-    async function search(city) {
-      let tripcards = await TripcardsApi.getTripcards(city);
-      setTripcards(tripcards);
+
+  async function searchDBForTripcards(city, username) {
+      try {
+        let allTripcards = await TripcardsApi.getTripcardsByCityAndUsername(city, username);
+        
+        let filteredTripcards = allTripcards.filter((tripcard) => tripcard.keep_private == false);
+        setTripcards(filteredTripcards);
+       } catch (errors) {
+          console.error("There are no tripcards", errors);
+       }  
     }
 
   if (!tripcards) return  <LoadingSpinner />
 
 
   return (
-      <Container>
-          <div className="text-center" style={{ width: '50%', margin: 'auto' }}>
-            <h6 className="text-center text-muted mt-4">Select a destination or enter one</h6>
-              <SearchForm searchFor={search} />
-          </div>
+      <> 
+        <Container> 
+            <h5 className="text-center py-3" style={{ 'color': '#450b45' }}>Search for tripcards by username or city</h5>   
+            <SearchTripcards searchDBForTripcards={searchDBForTripcards} />
+        </Container>
 
-          <div className="TripcardList justify-content-center">
+
+        <div className="TripcardList justify-content-center py-4">
               {tripcards.length ?     
                   <TripcardCardList tripcards={tripcards} />
-               : (
-                <p className="lead">Sorry, no results were found</p>
-                )
+               : 
+                <div className="text-center" style={{ 'color': '#450b45' }}>  
+                  <p>Sorry, no results were found</p>
+                </div>
               }
-          </div>
-      </Container>
+        </div>
+      </>
   );
 }
 

@@ -34,6 +34,7 @@
 }
 
 
+/* On screens that are 560px or less stack items */
 @media only screen and (max-width: 560px) {
   .SearchDBBusinesses {
     background-image: url('../assets/background_img.jpg');

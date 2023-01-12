@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
-import { Card, Form, Button, Alert } from "react-bootstrap";
+import { Container, Card, Form, Button, Alert } from "react-bootstrap";
 
-import { formatCreatedOnDate } from "../common/Helpers";
+import { formatDate } from "../common/Helpers";
 import TripcardsApi from "../api/api";
 import UserContext from "../auth/UserContext";
 
@@ -14,107 +14,100 @@ import UserContext from "../auth/UserContext";
  * 
  * Routed as /tripcards/:id/update
  * 
- * Routes -> TripcardDetail -> UpdateTripcardForm -> Alert
+ * Routes -> TripcardPage -> UpdateTripcardForm -> Alert
  */
 
 const UpdateTripcardForm = ({ tripcard }) => {
   
-  const { currentUser, setTripcard } = useContext(UserContext);
+  const { setTripcard } = useContext(UserContext);
 
   const [formData, setFormData] = useState({
-                                              city: "",
-                                              state: "",
-                                              country: "",
-                                              hasVisited: "",
-                                              keepPrivate: "",
-                                              createdOn: ""
+                                            keep_private: tripcard.keep_private,
+                                            has_visited: tripcard.has_visited
                                           });
 
   const [formErrors, setFormErrors] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
     
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [saved, setSaved] = useState();
   
  
-  // handle update tripcard click
+  /** Handle update tripcard form submit:
+   * on form submit:
+   * - attempt save to backend and report any errors
+   * - if successful:
+   * - clear previous error messages
+   * - show save alert message
+   * - set updated tripcard information throughout the site
+   */
+
   async function handleSubmit(evt) {
     evt.preventDefault();
 
-    let data = {
-          id: tripcard.id,
-          user_id: tripcard.user_id,
-          destination_id: tripcard.destination_id,
-          username: tripcard.username,
-          city: tripcard.city,
-          state: tripcard.state,
-          country: tripcard.country,
-          created_on: tripcard.createdOn,
-          keep_private: formData.keepPrivate,
-          has_visited: formData.hasVisited
+    let tripcardData = {
+          keep_private: formData.keep_private,
+          has_visited: formData.has_visited
     }
 
     let updatedTripcard;
-    try {
-          updatedTripcard = await TripcardsApi.updateTripcard(tripcard.id, data); 
-          setTripcard(updatedTripcard);
-          setFormData(data => ({ ...data}));
 
+    try {
+          updatedTripcard = await TripcardsApi.updateTripcard(tripcard.id, tripcardData); 
         } catch(errors) {
           setFormErrors(errors);
           return;
         }
-
+  
+    setFormData(data => ({ ...data }));
     setFormErrors([]);
     setSaved(true)
     setButtonDisabled(true); 
+
+    // trigger reloading of tripcard information throughout the site
+    setTripcard(updatedTripcard);
   } 
 
 
-  /** Update form data field */
+  /** Handle form data changing */
 
-  function handleChange(evt) {
-    const { name, checked } = evt.target;
-    setIsChecked(!isChecked);
-    setFormData(data => ({ ...data, [name]: checked }));
+  const  handleChange = (evt) => {
+    const { value, checked } = evt.target;
+    
+    setFormData(data => ({ ...data, [value]: checked }));
     setFormErrors([]);
   }
  
   return (
-    <div className="UpdateTripcardForm col-md-8 offset-md-2">
-      <Card className="mb-4 p-4" style={{ backgroundColor: '#cad9cc' }}>
-        <Card.Title> Tripcard for {tripcard.city}</Card.Title>
-          <Card.Subtitle>Created on: {formatCreatedOnDate(formData.createdOn)}</Card.Subtitle>
+    <Container className="UpdateTripcardForm py-4">
+      <Card className="mb-4 p-5" style={{ backgroundColor: '#C1C8E4' }}>
+        <Card.Title className="mb-3"> Tripcard for {tripcard.city}</Card.Title>
+          <Card.Subtitle className="mb-3">Created on: {formatDate(tripcard.createdOn)}</Card.Subtitle>
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="tripcard.keepPrivate">
-                 <div key={`keep_private-checkbox`} className="checkbox mb-3">
+              <Form.Group className="mb-3" controlId="keepPrivate">
                   <Form.Check
-                      type={"checkbox"}
-                      name={"keep_private"}
-                      label={"Keep private"}
-                      value={"formData.keepPrivate"}
-                      checked={isChecked}
+                      type="checkbox"
+                      name="keep_private"
+                      label="Keep private"
+                      value="keep_private"
+                      checked={formData.keep_private}
                       onChange={handleChange}
                   />
-                </div> 
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formData.hasVisited">
-                <div key={`has_visited-checkbox`} className="checkbox mb-3">
-                  <p>Select if you have visited this destination</p>
+              <Form.Group className="mb-2" controlId="formData.has_visited">
+                  <p className="mb-2">Select if you have visited this destination</p>
                     <Form.Check
-                        type={"checkbox"}
-                        name={"has_visited"}
-                        label={"Visited"}
-                        value={"formData.hasVisited"}
-                        defaultChecked={false}
+                        type="checkbox"
+                        name="has_visited"
+                        label="Visited"
+                        value="has_visited"
+                        checked={formData.has_visited}
                         onChange={handleChange}
                     />
-                </div>
               </Form.Group>
 
               {formErrors.length ? 
-                    <Alert variant="danger">Could not add review. Please try again later </Alert> 
+                    <Alert variant="danger">Could not update tripcard. Please try again later </Alert> 
                     : null}
 
               {saved ?
@@ -126,15 +119,15 @@ const UpdateTripcardForm = ({ tripcard }) => {
             <div className="text-center">
               <Button className="mb-2" 
                       size="sm"
-                      variant="primary" 
+                      variant="secondary" 
                       type="submit"
                       onClick={handleSubmit}>
-                Save Tripcard
+                Update Tripcard
               </Button>
             </div>
           </Form>
       </Card>
-    </div>
+    </Container>
   );
 }
 

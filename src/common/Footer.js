@@ -1,7 +1,10 @@
 import { Container, Row, Col} from "react-bootstrap";
+
 import yelp_logo from "../assets/yelp_logo.png";
 import "./Footer.css";
 
+
+/** Displays photo and Yelp api data credits on homepage */
 
 const Footer = () => {
 
@@ -24,22 +27,18 @@ const Footer = () => {
 
                 <Col sm={6}>
                   <p className="Footer-photo-credit text-muted mt-4">
-                  Photo by <a href="https://unsplash.com/@jack_anstey?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-                              target="_blank"
-                              rel="noopener noreferrer">
-                  Jack Anstey</a> on {' '}
-                  <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-                      target="_blank"
-                      rel="noopener noreferrer">
-                    Unsplash</a>
+                  Photo by <a href="https://unsplash.com/@victor_g?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Victor</a> {' '}
+                  on {' '}
+                  <a href="https://unsplash.com/wallpapers/travel/city?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+  
                   </p> 
                    
                 </Col>  
               </Row>
               
-              </Container>
+            </Container>
 
-          );
+        );
   }
 
   export default Footer;

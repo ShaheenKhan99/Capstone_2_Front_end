@@ -1,24 +1,23 @@
 import { useState, useContext } from "react";
-import { Card, Button, Alert } from "react-bootstrap";
+import { Container, Card, Button, Alert } from "react-bootstrap";
 
-import TripcardsApi from "../api/api";
 import UserContext from "../auth/UserContext";
+
 
 /** AddReviewForm
  * 
- * Is rendered by BusinessDetail to show form to add a review about business saved in DB.
- * 
+ * Is rendered by BusinessPage to show form to add a review about business saved in database.
  * 
  * Routed at /businesses/:id/reviews
  * 
- *  BusinessDetail -> AddReviewForm
+ *  BusinessPage -> AddReviewForm
  * 
  */
 
 
 const AddReviewForm = ({ business }) => {
 
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, createReview, setReview,  } = useContext(UserContext);
   
   const [formData, setFormData] = useState({ 
                                             user_id: "",
@@ -30,11 +29,13 @@ const AddReviewForm = ({ business }) => {
                                             created_on: "",
                                             image_url: ""  
                                             });
+
   const [formErrors, setFormErrors] = useState([]);
-  const [review, setReview] = useState();
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [saved, setSaved] = useState();
   
+  
+  /** Handles submit review for business */
 
   async function handleSubmitReview(evt) {
     evt.preventDefault();
@@ -43,7 +44,7 @@ const AddReviewForm = ({ business }) => {
               user_id: currentUser.id,
               username: currentUser.username,
               business_id: business.id,
-              business_name: business.businessName,
+              business_name: business.business_name,
               text: formData.text,
               rating: formData.rating,
               created_on: new Date(),
@@ -51,7 +52,7 @@ const AddReviewForm = ({ business }) => {
       }
 
     try {
-          const review = await TripcardsApi.addReview(business.id, data);
+          const review = await createReview(data);
           setReview(review);
           setFormData(data => ({ ...data }));
          } catch (errors) {
@@ -72,9 +73,9 @@ const AddReviewForm = ({ business }) => {
   }
 
   return (
-        <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4 mt-4">
-          <h4 className="text-center mb-3">Add a review for  {business.businessName}</h4>
-          <Card className="card" style={{ backgroundColor: '#cad9cc' }}>
+        <Container className="AddReviewForm-container py-4">
+          <h5 className="text-center mb-3" style={{ color: "#450b45"}}>Add a review for  {business.business_name}</h5>
+          <Card className="card" style={{ backgroundColor: '#C1C8E4', border: "1px solid #450b45" }}>
             <Card.Body className="card-body">
               <form onSubmit={handleSubmitReview}>
 
@@ -84,6 +85,8 @@ const AddReviewForm = ({ business }) => {
                               className="form-control"
                               value={formData.text}
                               onChange={handleChange}
+                              disabled={saved}
+                              required
                     />
                 </div>
 
@@ -93,7 +96,7 @@ const AddReviewForm = ({ business }) => {
                           name="rating"
                           value={formData.rating}
                           onChange={handleChange}
-                          className="custom-select"
+                          className="custom-select mx-2"
                     >
                       <option disabled>Rating</option>
                       <option value="1">1</option>
@@ -117,7 +120,6 @@ const AddReviewForm = ({ business }) => {
                        onChange={handleChange}
                   />
                 </div>
-
             
                   {formErrors.length ? 
                     <Alert variant="danger">
@@ -127,12 +129,12 @@ const AddReviewForm = ({ business }) => {
 
                   {saved ?
                     <Alert variant="success">Added review {' '}
-                      <Alert.Link href="/">Explore</Alert.Link>
+                      <Alert.Link href="/">Explore other places</Alert.Link>
                     </Alert>        
                     : null }
 
                   <div className="d-grid gap-5 d-sm-flex justify-content-center">
-                    <Button variant="outline-success"
+                    <Button variant="outline-secondary"
                             type="submit"
                             size="md"
                             disabled={buttonDisabled}
@@ -143,7 +145,7 @@ const AddReviewForm = ({ business }) => {
                 </form>
             </Card.Body>
           </Card>
-        </div>
+        </Container>
   );
 }
 

@@ -4,9 +4,10 @@ import { NavLink } from 'react-router-dom';
 import UserContext from '../auth/UserContext';
 import "./Navigation.css";
 
+
 /** Navigation bar for site. Shows up on every page.
  * 
- * When user is logged in, shows links to main areas of site. When not, it show link to Login and Signup forms.
+ * When user is logged in, shows links to main areas of site. When not, it shows links to Login and Signup forms.
  * 
  * Rendered by App
  */
@@ -21,20 +22,17 @@ const Navigation = ({ logout }) => {
   function loggedInNav() {
     return (
             <nav className="navbar">
-              <NavLink className="nav-item nav-link me-4" to="/destinations">
-                Create a Tripcard
-              </NavLink>
 
               <NavLink className="nav-item nav-link me-4" to="/businesses">
                 User Favorites
               </NavLink>
-
+              
               <NavLink className="nav-item nav-link me-4" to="/tripcards">
-                Get Inspired
+                All Tripcards
               </NavLink>
 
               <NavLink className="nav-item nav-link me-4" to="/profile">
-                Profile 
+                My Tripcards
               </NavLink>
 
               <NavLink className="nav-item nav-link me-4" 
@@ -48,6 +46,7 @@ const Navigation = ({ logout }) => {
   function loggedOutNav() {
     return (
             <nav className="navbar">
+
               <NavLink className="nav-item nav-link me-4" to="/login">
                 Login
               </NavLink>
@@ -64,6 +63,7 @@ const Navigation = ({ logout }) => {
             <div className="container-fluid">
    
               <NavLink className="navbar-brand ms-5" 
+                        style={{ "color": "#f1ddeb" }}
                         to="/">
                   Tripcards
                </NavLink>

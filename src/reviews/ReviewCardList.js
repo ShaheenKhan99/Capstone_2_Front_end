@@ -2,21 +2,22 @@ import ReviewCard from "./ReviewCard";
 
 /** Show list of review cards.
  * 
- * Used by ReviewList, UserPage and BusinessDetail to list reviews.
+ * Used by ReviewCardList, UserPage and BusinessPage to list reviews.
  * 
- * ReviewList -> ReviewCardList -> ReviewCard
- * BusinessDetail -> ReviewCardList -> ReviewCard
+ * ReviewCardList -> ReviewCard
+ * BusinessPage -> ReviewCardList -> ReviewCard
  * UserPage -> ReviewCardList -> ReviewCard
  * 
  */
 
- const  ReviewCardList = ({ reviews }) =>  {
+ const  ReviewCardList = ({ reviews, updateReview }) =>  {
   console.debug("ReviewCardList", "reviews=", reviews);
 
   return (
-    <div className="ReviewCardList">
-      {reviews.map(r => (
-            <ReviewCard key={r.id}
+      <div className="ReviewCardList">
+        {reviews ? 
+          reviews.map(r => (
+                <ReviewCard key={r.id}
                         id={r.id}
                         user_id={r.user_id}
                         username={r.username}
@@ -25,10 +26,14 @@ import ReviewCard from "./ReviewCard";
                         text={r.text}
                         rating={r.rating}
                         created_on={r.created_on}
-                        image_url={r.image_url}        
-              />
-        ))}
-    </div>
+                        image_url={r.image_url} 
+                        updateReview={updateReview}
+                        
+                />
+            )) 
+          :
+            null}
+      </div>
   );
 }
 

@@ -1,28 +1,32 @@
-import { Container, Row, Col } from 
-"react-bootstrap";
+import { Link } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
 
-import YelpBusiness from './YelpBusiness';
+import BusinessCard from '../businesses/BusinessCard';
 
 
-/** Show page with list of businesses returned from Yelp API through searchYelpBusinesses.
+/** Shows list of businesses returned from Yelp API through searchYelpBusinesses.
  * 
- * YelpBusinessesList -> YelpBusiness
+ * YelpBusinessesList -> BusinessCard
  * This is routed to at /
+ * Renders BusinessCard
  * 
- * YelpBusinessesList -> YelpBusiness
+ * YelpBusinessesList -> BusinessCard
  */
 
-const YelpBusinessesList = ({ businesses }) => {
-  console.debug("YelpBusinessesList", "businesses=", businesses);
 
-//  const { currentUser} = useContext(UserContext);
+const YelpBusinessesList = ({ businesses }) => {
 
   return (
-        <Container className="YelpBusinessesList-container mt-2">
-              <Row className="YelpBusinessesList-row row-flex">
+        <Container className="YelpBusinessesList-container mt-4">
+              <Row className="YelpBusinessesList-row row-flex gy-3">
+
                 {businesses.map(business => (
-                  <Col  sm={6} md={4} className="BusinessesList-col mb-3">
-                    <YelpBusiness key={business.yelp_id}
+                  <Col sm={6} md={4} className="YelpBusiness-col">
+
+                    <Link className="YelpBusiness-Link" 
+                          to={`api/businesses/${business.yelp_id}`}
+                          style={{ textDecoration: "none" }}>
+                      <BusinessCard key={business.yelp_id}
                                     yelp_id={business.yelp_id}
                                     business_name={business.business_name}
                                     address1={business.address1}
@@ -34,14 +38,14 @@ const YelpBusinessesList = ({ businesses }) => {
                                     latitude={business.latitude}
                                     longitude={business.longitude}
                                     phone={business.phone}
-                                    img_src={business.image_url}
+                                    image_url={business.image_url}
                                     url={business.url}
                                     rating={business.rating}
                                     review_count={business.review_count}
                                     category={business.category}
                             />
+                          </Link>
                         </Col>
-                        
                         ))}
               </Row>
      
