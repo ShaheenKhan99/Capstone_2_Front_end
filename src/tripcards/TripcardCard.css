@@ -7,11 +7,6 @@
 }
 
 
-.TripcardCard-cardbody {
-  background-color:#71588d;
-}
-
-
 .TripcardCard-title {
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -19,7 +14,7 @@
 
 .TripcardCard-username {
   letter-spacing: 2px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 

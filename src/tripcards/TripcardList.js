@@ -38,7 +38,7 @@ const TripcardList = () => {
         let filteredTripcards = allTripcards.filter((tripcard) => tripcard.keep_private == false);
         setTripcards(filteredTripcards);
        } catch (errors) {
-          console.error("There are no tripcards", errors);
+        console.error("There are no tripcards", errors);
        }  
     }
 

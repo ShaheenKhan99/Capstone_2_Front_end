@@ -160,15 +160,14 @@ const App = () => {
   }   
 
 
-  /** Checks if user has created tripcard for yelp business destination */
-
   async function hasCreatedYelpDestinationTripcard(yelp_id){
 
     let business = await TripcardsApi.getBusinessDetails(yelp_id);
 
     if (currentUserTripcards) {
-          const tripcard = currentUserTripcards.find(tripcard => 
-        tripcard.city == business.city);
+        const tripcard = currentUserTripcards.find(tripcard => 
+        tripcard.city == business.city && tripcard.state == business.state && tripcard.country == business.country);
+      
           if (tripcard) {
             setTripcard(tripcard);
             return true;
@@ -211,6 +210,7 @@ const App = () => {
 
         } catch (err) {
             console.error("Could not delete", err.message);
+            return { success: false, err};
         }
   }
 
@@ -224,7 +224,7 @@ const App = () => {
       const business = await TripcardsApi.getBusiness(business_id);
 
       const tripcard = currentUserTripcards.find(tripcard => 
-        tripcard.city == business.city);
+        tripcard.city == business.city && tripcard.state == business.state && tripcard.country == business.country);
 
         if(tripcard) {
           setTripcard(tripcard);
@@ -252,7 +252,7 @@ const App = () => {
           let business = businessRes[0];
           
           const tripcard = currentUserTripcards.find(tripcard => 
-        tripcard.city === business.city);
+            tripcard.city == business.city && tripcard.state == business.state && tripcard.country == business.country);
 
             if(tripcard) {
              setTripcard(tripcard);

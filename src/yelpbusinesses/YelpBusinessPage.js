@@ -46,12 +46,8 @@ const YelpBusinessPage = () => {
 
   const [business, setBusiness] = useState();
   const [yelpReviews, setYelpReviews] = useState([]);
-   
  
   const [tripcardBusiness, setTripcardBusiness] = useState();
-  
-  const [city, setCity] = useState();
-  
   const [dbTripcard, setDBTripcard] = useState();
 
   const [added, setAdded] = useState();
@@ -111,7 +107,7 @@ const YelpBusinessPage = () => {
         setButtonDisabled(true);
         } catch (error) {
           console.error("Could not add business to tripcard", error.message);
-          return;
+          return { success: false, error };
         }  
     } 
 
@@ -124,19 +120,14 @@ const YelpBusinessPage = () => {
         setDBTripcard(dbTripcard);  
         setCreated(true);
         return dbTripcard;
-      } else {
-          setIsCreate(true);
-      }
+    }
   }
-
 
   /** Fetch tripcard from DB. If tripcard not created, it sets a tripcard error and prompts user to create a tripcard */
 
   function getDBTripcardForUser(){
-    const city = business.city;
-    setCity(city);
+    let tripcard = currentUserTripcards.find(tripcard => tripcard.city == business.city && tripcard.state == business.state && tripcard.country == business.country);
 
-    let tripcard = currentUserTripcards.find(tripcard => tripcard.city === city);
     if (!tripcard){
       setIsCreate(true);
       } else {
@@ -149,7 +140,7 @@ const YelpBusinessPage = () => {
 
             {!created ?
               <Container className="YelpBusinessPage-createTripcard mb-4 p-4">
-                    <h5>Let's create a tripcard for {business.city} first </h5> 
+                    <h5>Let's create a tripcard for {business.city}, {business.state}  {business.country}  first </h5> 
 
                       <CreateTripcardForm   business={business}
                                             setIsCreate={isCreate}

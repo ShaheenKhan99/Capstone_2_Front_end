@@ -27,7 +27,7 @@ import { Container, Row, Col } from "react-bootstrap";
                         <TripcardCard key={t.id}
                                       id={t.id}
                                       destination_id={t.destination_id}
-                                      user_id={t.userID}
+                                      user_id={t.user_id}
                                       username={t.username}
                                       city={t.city}
                                       state={t.state}

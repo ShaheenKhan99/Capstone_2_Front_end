@@ -51,7 +51,6 @@ import "./BusinessPage.css";
 
     
     const [business, setBusiness] = useState(null);
-    const [city, setCity] = useState();
     const [dbTripcard, setDBTripcard] = useState();
     const [deleteTripcardBusiness, setDeleteTripcardBusiness] = useState();
     const [isAddReview, setIsAddReview] = useToggle(false);
@@ -117,8 +116,8 @@ import "./BusinessPage.css";
           setButtonDisabled(true);
           } catch (error) {
             console.error("Could not add business to tripcard", error.message);
-            return;
-           }   
+            return { success: false, error};
+          }   
   }
  
   /** Get correct tripcard for user. If tripcard does not exist, wait to get created tripcard */
@@ -139,10 +138,8 @@ import "./BusinessPage.css";
   /** Fetch tripcard from DB. If tripcard not created, it  prompts user to create a tripcard */
 
   function getDBTripcardForUser(){
-    const city = business.city;
-    setCity(city);
-
-    let tripcard = currentUserTripcards.find(tripcard => tripcard.city === city);
+   
+    let tripcard = currentUserTripcards.find(tripcard => tripcard.destination_id == business.destination_id);
     if (!tripcard){
       setIsCreate(true);
       } else {

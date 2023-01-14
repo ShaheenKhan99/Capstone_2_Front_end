@@ -183,9 +183,9 @@ class TripcardsApi {
 
 /** Get destinations (filtered by city) */
 
-  static async getDestinations(city) {
+  static async getDestinations(city, state, country) {
 
-    let res = await this.request("destinations", { city } );
+    let res = await this.request("destinations", { city, state, country } );
     return res.destinations;
   }
 
@@ -340,9 +340,9 @@ class TripcardsApi {
 
   /** Get businesses from Yelp API by term and location */
 
-  static async getBusinessesFromYelpApi(term, location, sortBy) {
+  static async getBusinessesFromYelpApi(term, location) {
 
-    const result = await this.request("api/businesses/search", { term, location, sortBy });
+    const result = await this.request("api/businesses/search", { term, location });
     return result;
   }
 

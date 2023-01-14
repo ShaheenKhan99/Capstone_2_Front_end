@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import { Container, Col, Row, Card, Button } from "react-bootstrap";
+import { CgProfile } from "react-icons/cg";
 
 import UserContext from './UserContext';
 import "./UserProfile.css";
@@ -31,13 +32,14 @@ const UserProfile = () => {
                     <Row className="justify-content-center align-items-center">
                       
                       <Col md={3} className="mt-3">
-                        <Card.Text className="UserProfile-Username">Username: {`${currentUser.username}`}</Card.Text>
-                          <Card.Subtitle className="UserProfile-fullname mb-3">
-                           {`${currentUser.firstName} ${currentUser.lastName}`} 
-                          </Card.Subtitle>
+                        <CgProfile color="white"
+                                   className="UserProfileIcon" />
+
+                        <Card.Text className="UserProfile-Username mt-3 mb-4">{`${currentUser.username}`}</Card.Text>
                           <div className="pb-2 mb-2">
                             <Link to="/update" type="ProfileForm" className="text-center">
-                              <Button variant="outline-light" 
+                              <Button variant="outline-light"
+                                      size="sm" 
                                       to="/update">
                                   Edit profile
                               </Button>

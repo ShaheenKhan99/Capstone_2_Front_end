@@ -110,6 +110,7 @@ export const getCorrectBusiness = async (business) => {
             return response;
           } catch (err) {
             console.error(err.message)
+            return { success: false, err};
           }  
     }
 

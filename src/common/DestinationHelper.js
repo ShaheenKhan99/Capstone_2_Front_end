@@ -20,15 +20,18 @@ export const getCorrectDestination = async (business) => {
   async function getDBDestinationForUser(){
     
     let city = business.city;
-    console.log("city", city);
+    let state = business.state;
+    let country = business.country;
+
     try {
-      let resultRes = await TripcardsApi.getDestinations(city);
-      let result = resultRes[0];
-      return result;
-    } catch (err) {
-      console.error(err);
-    }
-  }
+          let resultRes = await TripcardsApi.getDestinations(city, state, country);
+          let result = resultRes[0];
+          return result;
+          } catch (err) {
+          console.error(err);
+          return;
+        }
+     }
 
   /** Add destination of Yelp business to DB  */
 
@@ -40,10 +43,11 @@ export const getCorrectDestination = async (business) => {
       }
 
     try {
-        const response = await TripcardsApi.createDestination(data);
-      return response;
-    } catch (error) {
-      console.error(error.message)
-    }  
-  }
+          const response = await TripcardsApi.createDestination(data);
+          return response;
+        } catch (error) {
+          console.error(error.message)
+          return { success: false, error};
+        }  
+   }
 }

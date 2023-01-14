@@ -37,7 +37,7 @@ const SearchDBBusinesses = (props)  => {
             <div className="SearchDBBusinesses-fields">
               <input className="form-control form-control-md"
                       placeholder="Enter a category" 
-                      onChange={handleCategoryNameChange} />
+                      onChange={handleCategoryNameChange}/>
 
               <input placeholder="Enter a city" 
                    onChange={handleCityChange} />

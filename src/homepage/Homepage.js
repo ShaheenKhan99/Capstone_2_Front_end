@@ -40,7 +40,7 @@ const Homepage = () => {
         <>
           <div className="Homepage mt-4">
             <div className="Homepage-heading text-center p-3">
-              <h5>Explore places to visit or things to do on your next trip</h5>
+              <h5>Create tripcards for places to visit at your dream destinations</h5>
             </div>
 
       

@@ -33,7 +33,6 @@ const CreateTripcardForm = ({ business }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-
   const [formData, setFormData] = useState({ 
     destination_id: "",
     user_id: "",
@@ -49,8 +48,7 @@ const CreateTripcardForm = ({ business }) => {
 const [formErrors, setFormErrors] = useState([]);
 
 
-/** On submit, 
- * function fetches correct destination and then creates a tripcard for user */
+/** On submit, function fetches correct destination and then creates a tripcard for user */
 
 async function handleSubmit(evt) {
   evt.preventDefault();
@@ -78,7 +76,7 @@ async function handleSubmit(evt) {
       await createTripcard(data);
     } catch (errors) {
       setFormErrors(errors);
-      return;
+      return { success: false, errors };
     }  
 
     setFormData(data => ({ ...data }));
@@ -108,7 +106,7 @@ async function handleSubmit(evt) {
 
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Create Tripcard for {business.city} {business.country}</Modal.Title>
+              <Modal.Title>Create Tripcard for {business.city}{' '} <span className="text-muted">{business.state} {' '} {business.country}</span></Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
@@ -154,6 +152,12 @@ async function handleSubmit(evt) {
               </Form>
             </Modal.Body>
           <Modal.Footer>
+            <Button variant="outline-secondary" 
+                    size="sm"
+                    className="mx-4"
+                    onClick={handleClose}>
+                Cancel
+            </Button>
           
           
           <Button variant="outline-success"  

@@ -55,7 +55,7 @@ const UpdateTripcardForm = ({ tripcard }) => {
           updatedTripcard = await TripcardsApi.updateTripcard(tripcard.id, tripcardData); 
         } catch(errors) {
           setFormErrors(errors);
-          return;
+          return { success: false, errors};
         }
   
     setFormData(data => ({ ...data }));
@@ -81,9 +81,9 @@ const UpdateTripcardForm = ({ tripcard }) => {
     <Container className="UpdateTripcardForm py-4">
       <Card className="mb-4 p-5" style={{ backgroundColor: '#C1C8E4' }}>
         <Card.Title className="mb-3"> Tripcard for {tripcard.city}</Card.Title>
-          <Card.Subtitle className="mb-3">Created on: {formatDate(tripcard.createdOn)}</Card.Subtitle>
+          <Card.Subtitle className="mb-3">Created on: {formatDate(tripcard.created_on)}</Card.Subtitle>
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="keepPrivate">
+              <Form.Group className="mb-3" controlId="keep_private">
                   <Form.Check
                       type="checkbox"
                       name="keep_private"

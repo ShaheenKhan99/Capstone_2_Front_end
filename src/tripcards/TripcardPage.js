@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Container, Row, Col, Card, Button, Alert } from "react-bootstrap";
+import { CgProfile } from "react-icons/cg";
 
 import TripcardsApi from "../api/api";
 import UserContext from "../auth/UserContext";
@@ -28,8 +29,6 @@ const TripcardPage = ( updateTripcard ) => {
   const { id } = useParams();
 
   const { currentUser, removeTripcard } = useContext(UserContext);
-
-  console.debug("TripcardDetail", "id=", id);
 
   const [tripcard, setTripcard] = useState();
   const [businesses, setBusinesses] = useState([]);
@@ -68,8 +67,8 @@ const TripcardPage = ( updateTripcard ) => {
   }
 
   return (
+
       <div>
-    
           <Container className="container p-4" style={{ height: '25%' }}>
                 <Card className="TripcardPage-card">
                   <Card.Body className="TripcardPage-cardbody text-center">
@@ -83,31 +82,34 @@ const TripcardPage = ( updateTripcard ) => {
                         } 
                         </div>
 
-                        <Col sm={4}>
-                          <Card.Title className="mt-4">Tripcard for {tripcard.city}  </Card.Title>
+                        <Col sm={3}>
+                          <CgProfile color="white"
+                                     className="UserProfileIcon mt-2" />
+                            <Card.Text className="UserProfile-username mt-3">
+                            {tripcard.username} 
+                            </Card.Text>
+                          
+                        </Col>
+                          <Col sm={5}>
+                            <Card.Title className="mt-1 mb-2">Tripcard for {tripcard.city}  </Card.Title>
                             <Card.Subtitle>
                             {tripcard.state}  {tripcard.country}
                             </Card.Subtitle>
-                        </Col>
-                        <Col sm={5}>
-                            <Card.Text className="mt-3">
-                            Username: {tripcard.username} 
-                            </Card.Text>
-                            <Card.Text className="mb-3">Created on: {formatDate(tripcard.created_on)}</Card.Text>
+                            <Card.Text className="mt-4">Created on: {formatDate(tripcard.created_on)}</Card.Text>
                         </Col>
 
                         <Col sm={3}>
                           
                           {currentUser.id == tripcard.user_id ? 
                           <>
-                          <div className="pb-2 mb-4 mt-2">
+                          <div className="pb-2 mb-4">
                               <Button variant="outline-light" 
                                       onClick={handleUpdateClick}>
                                     Edit
                               </Button>
                           </div>
 
-                          <div>
+                          <div className="pb-2 mb-4">
                               <Button variant="outline-light" 
                                       disabled={buttonDisabled}
                                       onClick={handleDeleteClick}>
@@ -135,14 +137,24 @@ const TripcardPage = ( updateTripcard ) => {
 
       
         <Container className="TripcardBusinesses-section p-4">
-          <h5 className="text-center">My saved places</h5> 
+          <h5 className="text-center">Saved places</h5> 
             {tripcard.tripcardBusinesses.length ? 
               ( 
                <TripcardBusinesses businesses={businesses}
                 />
               )
             : 
-              <h5 className="mb-2 p-3 text-center" style={{ "color": "#450b45" }}>No places saved yet!</h5>}
+              <Link to="/"
+                    style={{ textDecoration: "none" }} >
+                  <Card className="p-4"
+                        style={{ backgroundColor: "#8860D0", 
+                                 color: "white",
+                                 width: "15rem",
+                                 margin: "auto" }}>
+                    <h5 className="text-center">No favorites saved yet. Click here and save some </h5>
+                  </Card>
+              </Link>
+            }
         </Container>
       
     </div>

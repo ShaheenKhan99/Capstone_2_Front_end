@@ -4,7 +4,7 @@
 
 
 .UserProfileCardBody {
-  background-color: #34b3f3;
+  background-color: #71588d;
   height: 25%;
   
 }
@@ -35,4 +35,14 @@
   margin: auto;
   padding: 2rem;
   border-radius: 10px;
+}
+
+.UserProfileIcon {
+  font-size: 40px;
+}
+
+@media only screen and (max-width: 400px) {
+  .UserProfileIcon {
+    font-size: 20px;
+  }
 }

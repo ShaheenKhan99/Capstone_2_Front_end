@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Card, Row, Col } from "react-bootstrap";
 
 import SearchDBBusinesses from "./SearchDBBusinesses";
 import BusinessCard from "./BusinessCard";
@@ -87,9 +87,16 @@ const BusinessList = () => {
 
                 </Row>)
               :
-                <div>
-                  <p className="lead text-center">Sorry, no favorites found</p>
-                </div>
+                <Link to="/"
+                      style={{ textDecoration: "none" }} >
+                  <Card className="p-4"
+                        style={{ backgroundColor: "#8860D0", 
+                                 color: "white",
+                                 width: "15rem",
+                                 margin: "auto" }}>
+                    <h5 className="text-center">No favorites saved yet. Click here and save some </h5>
+                  </Card>
+                </Link>
               }
               
           </Container>

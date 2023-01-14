@@ -12,7 +12,7 @@ const Footer = () => {
             <Container className="Footer-credits mt-5">
               <Row>
                 <Col sm={6}>
-                  <img className="Footer-yelp-icon mb-1 mt-3" src={yelp_logo} alt="logo" />
+                  <img className="Footer-yelp-icon mb-1 mt-4" src={yelp_logo} alt="logo" />
                   <p className="yelp-credit text-muted">
                     Data provided by {' '}
                       <a className="Footer-yelp-link"
@@ -26,7 +26,7 @@ const Footer = () => {
                 </Col>
 
                 <Col sm={6}>
-                  <p className="Footer-photo-credit text-muted mt-4">
+                  <p className="Footer-photo-credit text-muted mt-5">
                   Photo by <a href="https://unsplash.com/@victor_g?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Victor</a> {' '}
                   on {' '}
                   <a href="https://unsplash.com/wallpapers/travel/city?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
