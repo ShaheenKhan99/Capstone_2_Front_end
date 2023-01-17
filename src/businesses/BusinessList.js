@@ -4,6 +4,7 @@ import { Container, Card, Row, Col } from "react-bootstrap";
 
 import SearchDBBusinesses from "./SearchDBBusinesses";
 import BusinessCard from "./BusinessCard";
+import Footer from "../common/Footer"
 import LoadingSpinner from "../common/LoadingSpinner";
 import TripcardsApi from "../api/api";
 
@@ -46,7 +47,7 @@ const BusinessList = () => {
     return (
         <>  
           <Container className="BusinessList"> 
-            <h5 className="text-center py-3" style={{ 'color': '#450b45' }}>Check out places saved by other users</h5>   
+            <h5 className="text-center py-3" style={{ 'color': '#450b45' }}>Check out places saved by other users or write a review </h5>   
             <SearchDBBusinesses searchDB={searchDB} />
           </Container>
 
@@ -100,6 +101,7 @@ const BusinessList = () => {
               }
               
           </Container>
+          <Footer />
       </>
   );
 }

@@ -40,7 +40,6 @@ const SearchYelpBusinesses = (props) => {
 
           <div className="SearchYelpBusinesses-search text-center">
             <Button variant="light"
-                      size="lg" 
                       type="submit"
                       className="SearchyelpBusinesses-searchButton"
                       onClick={handleSearch} 

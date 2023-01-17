@@ -23,7 +23,7 @@ const BusinessCard = (business) => {
 
   return (
           <>
-            <Card className="BusinessCard-card">
+            <Card className="BusinessCard-card h-100">
 
               {business.image_url ? 
 
@@ -39,15 +39,11 @@ const BusinessCard = (business) => {
               }
                 <Card.Body className="p-4">
                   <Card.Title>{business.business_name}</Card.Title>
-
-                  <Card.Text className="BusinessCard-address mt-3">{business.address1}</Card.Text>
-
-                  <Card.Text className="BusinessCard-address">{business.city} {business.state}  {business.zip_code} </Card.Text>
-
-                  <Card.Text className="BusinessCard-address mb-5">{business.country} </Card.Text>
-                
+                  
+                  <Card.Text className="BusinessCard-destination mt-3 lh-1">{business.city}  {business.state} </Card.Text>  
+                 
                 {business.category_name ?
-                  <Card.Text className="BusinessCard-category lh-1">Category: {business.category_name}</Card.Text>
+                  <Card.Text className="BusinessCard-category mt-4 lh-1">Category: {business.category_name}</Card.Text>
                 :
                   null }
 

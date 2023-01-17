@@ -62,7 +62,7 @@ const Navigation = ({ logout }) => {
           <nav className="Navigation navbar mb-3">
             <div className="container-fluid">
    
-              <NavLink className="navbar-brand ms-5" 
+              <NavLink className="navbar-brand" 
                         style={{ "color": "#f1ddeb" }}
                         to="/">
                   Tripcards

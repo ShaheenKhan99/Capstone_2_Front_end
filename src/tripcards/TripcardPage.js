@@ -67,7 +67,6 @@ const TripcardPage = ( updateTripcard ) => {
   }
 
   return (
-
       <div>
           <Container className="container p-4" style={{ height: '25%' }}>
                 <Card className="TripcardPage-card">
@@ -84,7 +83,7 @@ const TripcardPage = ( updateTripcard ) => {
 
                         <Col sm={3}>
                           <CgProfile color="white"
-                                     className="UserProfileIcon mt-2" />
+                                     className="UserProfileIcon mt-3" />
                             <Card.Text className="UserProfile-username mt-3">
                             {tripcard.username} 
                             </Card.Text>
@@ -95,7 +94,7 @@ const TripcardPage = ( updateTripcard ) => {
                             <Card.Subtitle>
                             {tripcard.state}  {tripcard.country}
                             </Card.Subtitle>
-                            <Card.Text className="mt-4">Created on: {formatDate(tripcard.created_on)}</Card.Text>
+                            <Card.Text className="mt-4 mb-4">Created on: {formatDate(tripcard.created_on)}</Card.Text>
                         </Col>
 
                         <Col sm={3}>
@@ -156,8 +155,7 @@ const TripcardPage = ( updateTripcard ) => {
               </Link>
             }
         </Container>
-      
-    </div>
+      </div>
   );
 }
 

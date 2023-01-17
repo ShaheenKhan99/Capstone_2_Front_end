@@ -10,6 +10,7 @@ import AddReviewForm from "../reviews/AddReviewForm";
 import { getStars } from "../common/Helpers";
 import useToggle from "../hooks/useToggle";
 import LoadingSpinner from "../common/LoadingSpinner";
+import Footer from "../common/Footer"
 import noImage from "../assets/no_image.jpg";
 import "./BusinessPage.css";
 
@@ -163,8 +164,8 @@ import "./BusinessPage.css";
   }
 
   return (
-      <div className="p-3">
-
+      <>
+        <div className="p-3">
         {!created ?
             <Container className="YelpBusinessPage-createTripcard mb-4 p-4">
               <h5>Let's create a tripcard for {business.city} first </h5> 
@@ -177,6 +178,7 @@ import "./BusinessPage.css";
             </Container>
         :
           null } 
+        
 
             <Container className="BusinessPage-detailsContainer py-1">
                 
@@ -187,17 +189,17 @@ import "./BusinessPage.css";
                   :
                     null }     
             
-              <Card className="BusinessCard-card" style={{ "color": "#450b45" }}> 
+              <Card className="BusinessPage-card p-4" style={{ "color": "#450b45" }}> 
                 
-                  <Row className="BusinessCard-row">
+                  <Row className="BusinessPage-row">
                       <Col sm={5}>
                         {business.image_url ? 
                           <Card.Img src={business.image_url} 
                                 alt='...' 
                                 variant="top"
-                                className="BusinessCard-image" />
+                                className="BusinessPage-image" />
                         :
-                          <Card.Img className="BusinessCard-image" 
+                          <Card.Img className="BusinessPage-image" 
                                     src={noImage} 
                                     alt='No image available' />
                          
@@ -216,7 +218,7 @@ import "./BusinessPage.css";
                           : 
                             null}
 
-                          <Card.Text className="BusinessCard-categoryName lh-1">Category: {business.category_name}</Card.Text>
+                          <Card.Text className="BusinessPage-categoryName lh-1">Category: {business.category_name}</Card.Text>
             
                           <div className="mb-2">
                             <img src={getStars(business)} alt="star rating" />
@@ -232,30 +234,38 @@ import "./BusinessPage.css";
                           </div> 
                       </Col>
 
-                      <Col sm={3}>
+                      <Col sm={3} className="text-center">
 
+                    {created ? 
+                      null 
+                    :
+                      <CreateTripcardForm   business={business}
+                                            setIsCreate={isCreate}
+                                            onClick={handleCreateTripcardClick}
+                      />
+                     }
                         {added ?
-                          <div className="py-5 text-center">
+                          <div className="py-5">
                             <Button variant="outline-danger" 
                                     onClick={handleRemove}>
                                 Delete
                             </Button>
                           </div> 
                         : 
-                          <div className="py-5 text-center">
+                          <div className="py-5 ">
                             <Button variant="success"
-                                    size="sm" 
+                                    size="md"
                                     disabled={buttonDisabled}
                                     onClick={handleAdd}>
                               Add
                             </Button>
                           </div>
                         }  
+            
 
                         {!reviewed ?
-                          <div className="py-3 text-center">
-                            <Button variant="outline-secondary"
-                                    size="sm" 
+                          <div className="py-3">
+                            <Button variant="outline-secondary" 
                                     onClick={handleAddReviewClick}>
                                Write a review
                             </Button>
@@ -267,7 +277,8 @@ import "./BusinessPage.css";
                                   
                 </Card>               
               </Container>
-            
+
+             
             
 
             <div className="AddReview-container mt-5 mb-5">
@@ -285,7 +296,7 @@ import "./BusinessPage.css";
                 {business.reviews.length ? 
                     ( 
                       <>
-                        <h5 className="text-center" style={{ 'color': '#450b45' }}>Reviews for {business.business_name}</h5>
+                        <h5 className="text-center" style={{ 'color': '#450b45' }}>Tripcards user reviews for {business.business_name}</h5>
                         <div className="BusinessReviews-list">
                           <ReviewCardList reviews={business.reviews} />
                         </div> 
@@ -293,11 +304,13 @@ import "./BusinessPage.css";
                     )
                 : 
                   <div className="mt-5">
-                    <h5 className="text-center mt-5" style={{ 'color': '#450b45' }}>No reviews yet!</h5>
+                    <h5 className="text-center mt-5" style={{ 'color': '#450b45' }}>No Tripcards user reviews yet!</h5>
                   </div>
                 }
             </Container>
     </div>
+    <Footer />
+    </>
   );
   
 }

@@ -13,7 +13,6 @@
 }
 
 .BusinessCard-image {
-  height: 30%;
   width: 100%;
   object-fit: cover;
 }

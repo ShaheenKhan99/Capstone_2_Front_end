@@ -48,11 +48,11 @@ const UserProfile = () => {
                       </Col>
 
                       <Col md={5}>
-                        <div className="UserProfile-bio">
+                        <div className="UserProfile-bio mt-3">
                           {currentUser.bio ? 
                             <Card.Text className="mb-1">{`${currentUser.bio}`}</Card.Text>
                           :
-                            <Card.Text className="mb-1">Add a bio</Card.Text>
+                            <Card.Text className="mb-1">No bio </Card.Text>
                           }
                         </div>
                       </Col>

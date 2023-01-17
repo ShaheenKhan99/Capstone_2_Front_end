@@ -3,6 +3,7 @@ import { useState } from "react";
 import TripcardsApi from "../api/api";
 import YelpBusinessesList from "../yelpbusinesses/YelpBusinessesList";
 import SearchYelpBusinesses from "../yelpbusinesses/SearchYelpBusinesses";
+import LearnMoreModal from "./LearnMoreModal";
 import Alert from "../common/Alert";
 import useTimedMessage from "../hooks/useTimedMessage";
 import Footer from "../common/Footer";
@@ -41,6 +42,7 @@ const Homepage = () => {
           <div className="Homepage mt-4">
             <div className="Homepage-heading text-center p-3">
               <h5>Create tripcards for places to visit at your dream destinations</h5>
+              <LearnMoreModal />
             </div>
 
       

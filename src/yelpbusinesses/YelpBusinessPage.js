@@ -206,6 +206,15 @@ const YelpBusinessPage = () => {
                       
                         {currentUser ? 
                           <>
+                            {created ? 
+                              null 
+                            :
+                              <CreateTripcardForm   business={business}
+                                            setIsCreate={isCreate}
+                                            onClick={handleCreateTripcardClick}
+                              />
+                            }
+                            
                             {added ?    
 
                                 <div className="py-5 text-center" >
@@ -216,7 +225,7 @@ const YelpBusinessPage = () => {
                             : 
                                 <div className="py-5 text-center">
                                   <Button variant="outline-success"
-                                          size="sm" 
+                                          size="md" 
                                           disabled={buttonDisabled}
                                           onClick={handleAdd}>
                                       Add
@@ -234,7 +243,8 @@ const YelpBusinessPage = () => {
               </Container>
             </div>
 
-              <Container className="mt-3">
+              <Container className="mt-5">
+                  <h5 className="YelpBusinessePage-reviews text-center">Reviews from Yelp</h5>
                  <YelpBusinessReviews reviews={yelpReviews} />
               </Container>
           </div>

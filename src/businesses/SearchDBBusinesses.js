@@ -34,7 +34,7 @@ const SearchDBBusinesses = (props)  => {
 
   return (
           <Container className="SearchDBBusinesses">
-            <div className="SearchDBBusinesses-fields">
+            <div className="SearchDBBusinesses-fields mt-3">
               <input className="form-control form-control-md"
                       placeholder="Enter a category" 
                       onChange={handleCategoryNameChange}/>

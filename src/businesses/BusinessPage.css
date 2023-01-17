@@ -1,14 +1,14 @@
-.BusinessCard-card {
+.BusinessPage-card {
  color: #450b45;
  height: 100%;
 }
 
 
-.BusinessCard-image {
+.BusinessPage-image {
   height: 60vh;
   width: 100%;
 }
 
-.BusinessCard-categoryName {
+.BusinessPage-categoryName {
   text-transform: capitalize;
 }
