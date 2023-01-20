@@ -84,12 +84,12 @@ const UpdateReviewForm = () => {
 
     let updatedReview;
     try {
-          updatedReview = await TripcardsApi.updateReview(id, data); 
-          setReview(updatedReview);
-        } catch(errors) {
-          setFormErrors(errors);
-          return;
-        }
+      updatedReview = await TripcardsApi.updateReview(id, data); 
+      setReview(updatedReview);
+    } catch(errors) {
+      setFormErrors(errors);
+      return;
+    }
     
     setFormData(data => ({ ...data}));
     setFormErrors([]);
@@ -112,13 +112,12 @@ const UpdateReviewForm = () => {
   async function handleDeleteClick(evt) {
     evt.preventDefault()
     try {
-          setDeleteReview(TripcardsApi.deleteReview(id));
-          setDeleted(true);
-      
-        } catch (error) {
-          setFormErrors(error);
-          return;
-        }
+      setDeleteReview(TripcardsApi.deleteReview(id));
+      setDeleted(true);
+    } catch (err) {
+      setFormErrors(err);
+      return;
+    }
   }
  
 
@@ -173,39 +172,43 @@ const UpdateReviewForm = () => {
                 {formErrors.length ? 
                   <Alert type="danger"
                     messages={["Could not update. Try again later"]} />
-                  : null } 
+                : 
+                  null 
+                } 
 
-                  {saveConfirmed ?
-                    <Alert type="success"
-                            messages={["Updated successfully"]} />           
-                  : 
-                    null }
+                {saveConfirmed ?
+                  <Alert type="success"
+                          messages={["Updated successfully"]} />           
+                : 
+                  null 
+                }
                   
-                  {deleted ?
-                      <Alert type="danger"
-                            messages={["Deleted! Explore other places"]}  />  
-                  : 
-                    null}
+                {deleted ?
+                  <Alert type="danger"
+                         messages={["Deleted! Explore other places"]}  />  
+                : 
+                  null
+                }
 
-                  <div className="d-grid gap-5 d-sm-flex justify-content-center">
-                    <Button variant="outline-primary"
-                            type="submit"
-                            size="md"
-                            onSubmit={handleSubmit}>
-                      Update Review
-                    </Button>
-                  </div>
+                <div className="d-grid gap-5 d-sm-flex justify-content-center">
+                  <Button variant="outline-primary"
+                          type="submit"
+                          size="md"
+                          onSubmit={handleSubmit}>
+                    Update Review
+                  </Button>
+                </div>
                   
-                  <div className="d-grid gap-5 d-sm-flex justify-content-center mt-3">
-                    <Button variant="outline-danger"
-                      size="md"
-                      type="submit"
-                      disabled={deleted}
-                      onClick={handleDeleteClick}>
+                <div className="d-grid gap-5 d-sm-flex justify-content-center mt-3">
+                  <Button variant="outline-danger"
+                          size="md"
+                          type="submit"
+                          disabled={deleted}
+                          onClick={handleDeleteClick}>
                     Delete
-                    </Button>
-                  </div>
-                </form>
+                  </Button>
+                </div>
+              </form>
             </Card.Body>
           </Card>
         </div>

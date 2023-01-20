@@ -17,21 +17,21 @@ export const getCorrectDestination = async (business) => {
 
   /**  Fetch destination from DB */
 
-  async function getDBDestinationForUser(){
+  async function getDBDestinationForUser() {
     
     let city = business.city;
     let state = business.state;
     let country = business.country;
 
     try {
-          let resultRes = await TripcardsApi.getDestinations(city, state, country);
-          let result = resultRes[0];
-          return result;
-          } catch (err) {
-          console.error(err);
-          return;
-        }
-     }
+      let resultRes = await TripcardsApi.getDestinations(city, state, country);
+      let result = resultRes[0];
+      return result;
+    } catch (err) {
+      console.error(err);
+      return;
+    }
+  }
 
   /** Add destination of Yelp business to DB  */
 
@@ -43,11 +43,11 @@ export const getCorrectDestination = async (business) => {
       }
 
     try {
-          const response = await TripcardsApi.createDestination(data);
-          return response;
-        } catch (error) {
-          console.error(error.message)
-          return { success: false, error};
-        }  
+      const response = await TripcardsApi.createDestination(data);
+      return response;
+    } catch (error) {
+      console.error(error.message)
+      return { success: false, error};
+    }  
    }
 }

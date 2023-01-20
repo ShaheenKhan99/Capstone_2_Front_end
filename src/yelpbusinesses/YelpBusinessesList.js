@@ -17,11 +17,11 @@ import BusinessCard from '../businesses/BusinessCard';
 const YelpBusinessesList = ({ businesses }) => {
 
   return (
-        <Container className="YelpBusinessesList-container mt-4">
+        <Container className="YelpBusinessesList-container mt-4" style={{ height: "100%" }}>
               <Row className="YelpBusinessesList-row row-flex gy-3">
 
                 {businesses.map(business => (
-                  <Col sm={6} md={4} className="YelpBusiness-col">
+                  <Col xs={6} md={4} className="YelpBusiness-col">
 
                     <Link className="YelpBusiness-Link" 
                           to={`api/businesses/${business.yelp_id}`}
@@ -43,10 +43,10 @@ const YelpBusinessesList = ({ businesses }) => {
                                     rating={business.rating}
                                     review_count={business.review_count}
                                     category={business.category}
-                            />
-                          </Link>
-                        </Col>
-                        ))}
+                      />
+                    </Link>
+                  </Col>
+                ))}
               </Row>
      
       </Container>

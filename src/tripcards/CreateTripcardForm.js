@@ -5,7 +5,6 @@ import UserContext from "../auth/UserContext";
 import { getCorrectDestination } from "../common/DestinationHelper";
 
 
-
 /** CreateTripcard Form
  * Is rendered by BusinessPage and YelpBusinessPage to show form to create a tripcard for user.
  * 
@@ -34,45 +33,44 @@ const CreateTripcardForm = ({ business }) => {
   const handleShow = () => setShow(true);
 
   const [formData, setFormData] = useState({ 
-    destination_id: "",
-    user_id: "",
-    username: "",
-    city: "",
-    state: "",
-    country: "",
-    created_on: "",
-    keep_private: false,
-    has_visited: false
- });
+                                      destination_id: "",
+                                      user_id: "",
+                                      username: "",
+                                      city: "",
+                                      state: "",
+                                      country: "",
+                                      created_on: "",
+                                      keep_private: false,
+                                      has_visited: false
+  });
 
-const [formErrors, setFormErrors] = useState([]);
+  const [formErrors, setFormErrors] = useState([]);
 
 
-/** On submit, function fetches correct destination and then creates a tripcard for user */
+  /** On submit, function fetches correct destination and then creates a tripcard for user */
 
-async function handleSubmit(evt) {
-  evt.preventDefault();
+  async function handleSubmit(evt) {
+    evt.preventDefault();
 
-  const destination = await getCorrectDestination(business);
+    const destination = await getCorrectDestination(business);
     
     setDestination(destination);
 
+    let data = {
+      user_id: currentUser.id,
+      destination_id: destination.id,
+      username: currentUser.username,
+      city: business.city,
+      state: business.state,
+      country: business.country,
+      created_on: new Date(),
+      keep_private: formData.keep_private,
+      has_visited: formData.has_visited
+    }
 
-  let data = {
-    user_id: currentUser.id,
-    destination_id: destination.id,
-    username: currentUser.username,
-    city: business.city,
-    state: business.state,
-    country: business.country,
-    created_on: new Date(),
-    keep_private: formData.keep_private,
-    has_visited: formData.has_visited
-  }
+    let tripcard;
 
-  let tripcard;
-
-  try {
+    try {
       await createTripcard(data);
     } catch (errors) {
       setFormErrors(errors);
@@ -88,7 +86,7 @@ async function handleSubmit(evt) {
 
    /** Handle form data changing */
 
-   const  handleChange = (evt) => {
+  const  handleChange = (evt) => {
     const { value, checked } = evt.target;
     
     setFormData(data => ({ ...data, [value]: checked }));
@@ -140,14 +138,16 @@ async function handleSubmit(evt) {
                         Could not create tripcard
                         </Alert>
                     : 
-                      null } 
+                      null 
+                    } 
 
                     {saveConfirmed ?
                         <Alert variant="success">
                          Tripcard created!
                         </Alert> 
                     : 
-                      null }
+                      null 
+                    }
 
               </Form>
             </Modal.Body>

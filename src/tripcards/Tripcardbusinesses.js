@@ -20,15 +20,15 @@ const TripcardBusinesses = ({ businesses }) => {
               
               {businesses.map(business => (
                 
-              
-                <Col md={6}  className="YelpBusiness-col">
+                <Col xs={6} md={4} className="YelpBusiness-col">
 
-              <Link className="tripcardBusinessCard-card" 
-                    to={`/businesses/${business.id}`}
-                    key={business.id}
-                    style={{ textDecoration: "none" }}>
+                  <Link className="tripcardBusinessCard-card" 
+                        to={`/businesses/${business.id}`}
+                        key={business.id}
+                        id={business.id}
+                        style={{ textDecoration: "none" }}>
 
-                <BusinessCard key={business.id}
+                    <BusinessCard key={business.id}
                                   id={business.id}
                                   yelp_id={business.yelp_id}
                                   business_name={business.business_name}
@@ -49,13 +49,13 @@ const TripcardBusinesses = ({ businesses }) => {
                                   category_id={business.category_id}
                                   destination_id={business.destination_id}
                       /> 
-              </Link>
+                  </Link>
 
-           </Col> 
-          ))}
-        </Row>
-      </Container>
-  );
+                </Col> 
+              ))}
+            </Row>
+          </Container>
+    );
 }
 
 export default TripcardBusinesses;

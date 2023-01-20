@@ -1,8 +1,6 @@
-## **Tripcards**
+## **Tripcards** 
 
-#### Visit [Tripcards](https://faulty-fly.surge.sh/) and search and save places for your next trip   
-
-#### Tripcards is a destination focused travel app where users can create “tripcards” where they can save places based on their interests for any destination.
+#### Tripcards is a destination focused travel app where users can search for places and create “tripcards” to save places based on their interests for any destination.
 
 
 #### Users can search for places or activities such as arts, entertainment, restaurants, bookstores, shopping etc., view Yelp ratings and reviews and save the places to their own personalized destination “tripcard”.
@@ -47,6 +45,25 @@ Backend deployed on Heroku
 ### Schema Design
 
 ![DB Schema](/DB_Schema_v5.png "DB_Schema diagram")
+
+
+### Screenshots
+
+![Home Page](./readme_images/HomePage.png "HomePage")
+
+![Yelp Businesses List](./readme_images/YelpBusinessesList.png "Businesses List")
+
+![User Favorites](./readme_images/UserFavorites.png "User Favorites")
+
+![Yelp Business Details](./readme_images/YelpBusinessDetails.png "Yelp Business Details")
+
+![Business Details](./readme_images/BusinessDetails.png "Business Details")
+
+![All Tripcards](./readme_images/AllTripcards.png "All Tripcards")
+
+![Tripcard Page](./readme_images/TripcardPage.png "Tripcard Page")
+
+![My Tripcards](./readme_images/MyTripcards.png "My Tripcards")
 
 
 

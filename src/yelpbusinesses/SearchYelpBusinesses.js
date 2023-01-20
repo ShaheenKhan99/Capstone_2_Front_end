@@ -21,8 +21,8 @@ const SearchYelpBusinesses = (props) => {
 
   // Pass current state when user submits search button
   const handleSearch = (e) => {
-      e.preventDefault();
-      props.searchYelp(term, location);
+    e.preventDefault();
+    props.searchYelp(term, location);
   };
 
   
@@ -40,10 +40,10 @@ const SearchYelpBusinesses = (props) => {
 
           <div className="SearchYelpBusinesses-search text-center">
             <Button variant="light"
-                      type="submit"
-                      className="SearchyelpBusinesses-searchButton"
-                      onClick={handleSearch} 
-                      aria-label="SearchYelpBusinesses">
+                    type="submit"
+                    className="SearchyelpBusinesses-searchButton"
+                    onClick={handleSearch} 
+                    aria-label="SearchYelpBusinesses">
                   Search
             </Button>
           </div>

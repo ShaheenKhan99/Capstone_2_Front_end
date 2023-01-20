@@ -105,7 +105,10 @@ const LoginForm = ({ login }) => {
 
                       {formErrors.length ? 
                         <Alert type="danger"
-                        messages={[formErrors]} /> : null}
+                        messages={["Incorrect username or password. Please try again."]} /> 
+                      : 
+                        null
+                      }
 
                       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                         <Button type="submit" 

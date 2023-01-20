@@ -59,11 +59,11 @@ const UserPage = ( updateUser, updateReview, updateTripcard ) => {
               </div>
 
 
-              <Container className="UserTripcards-list mt-5">
+              <div className="UserTripcards-list mt-5">
                 {currentUserTripcards ? 
                     (
                       <>
-                          <h5 className="mt-2 text-center" style={{ 'color': '#450b45' }}>Tripcards for {currentUser.username}</h5>
+                          <h5 className="mt-2 text-center" style={{ color: '#450b45' }}>Tripcards for {currentUser.username}</h5>
                             
                           <TripcardCardList tripcards={tripcards}
                                             updateTripcard={updateTripcard} /> 
@@ -74,25 +74,25 @@ const UserPage = ( updateUser, updateReview, updateTripcard ) => {
                       <h5 className="text-center" style={{ color: '#450b45' }}>No tripcards yet!</h5>
                     </div>
                 }   
-              </Container>
+              </div>
 
 
-              <Container className="mt-3 p-2">    
+              
                 {currentUserReviews.length ? 
-                    (
-                      <>
-                        <h5 className="mt-4 text-center" style={{ color: '#450b45' }}>Reviews by {currentUser.username}</h5>
+                    
+                      <Container className="mt-3 p-2">    
+                        <h5 className="mt-3 text-center" style={{ color: '#450b45' }}>Reviews by {currentUser.username}</h5>
                           
                         <ReviewCardList reviews={currentUserReviews}
                                         updateReview={updateReview} /> 
-                      </>
-                    )
+                      
+                    </Container> 
                   :  
                     <div className="text-center" >
                       <h5 className="mt-5 mb-3 text-center" style={{ color: '#450b45' }}>No reviews yet!</h5>
                     </div>
                 }
-              </Container> 
+             
 
           </>     
       )

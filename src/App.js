@@ -7,6 +7,7 @@ import AppRoutes from "./routes-nav/AppRoutes";
 import TripcardsApi from "./api/api";
 import UserContext from "./auth/UserContext";
 import LoadingSpinner from "./common/LoadingSpinner";
+import { fullDestination } from "./common/Helpers";
 
 import { decodeToken } from "react-jwt";
 
@@ -27,7 +28,6 @@ export const  TOKEN_STORAGE_ID = "tripcards-token";
  * 
  * App -> Routes
 */
-
 
 const App = () => {
 
@@ -74,6 +74,7 @@ const App = () => {
 
           // put the token on the Api class so it can use it to call the API.
           TripcardsApi.token = token;
+
           let currentUser = await TripcardsApi.getCurrentUser(id);
 
           setCurrentUser(currentUser);
@@ -115,8 +116,8 @@ const App = () => {
       setToken(token);
       return { success: true };
     } catch (errors) {
-        console.error("signup failed", errors);
-        return { success: false, errors };
+      console.error("signup failed", errors);
+      return { success: false, errors };
     }
   }
 
@@ -150,8 +151,8 @@ const App = () => {
 
     if (currentUserTripcards) {
       let business = await TripcardsApi.getBusiness(id);
-      const city = business.city; 
-      let tripcard = currentUserTripcards.find(tripcard => tripcard.city == city);
+      let tripcard = currentUserTripcards.find(tripcard => fullDestination (tripcard) == fullDestination(business));
+
       if (tripcard) {
         setTripcard(tripcard);
         return true;
@@ -165,14 +166,12 @@ const App = () => {
     let business = await TripcardsApi.getBusinessDetails(yelp_id);
 
     if (currentUserTripcards) {
-        const tripcard = currentUserTripcards.find(tripcard => 
-        tripcard.city == business.city && tripcard.state == business.state && tripcard.country == business.country);
-      
-          if (tripcard) {
-            setTripcard(tripcard);
-            return true;
-          }  
-        }
+      const tripcard = currentUserTripcards.find(tripcard => fullDestination (tripcard) == fullDestination(business));
+      if (tripcard) {
+        setTripcard(tripcard);
+        return true;
+      }  
+    }
   }
 
 
@@ -181,16 +180,16 @@ const App = () => {
   async function createTripcard(data) {
 
     try { 
-          const tripcard = await TripcardsApi.createTripcard(data);
-          setTripcard(tripcard);
-          setTripcardIds(new Set([...tripcardIds, data.destination_id]));
-          setTripcards([...tripcards, tripcard]);
-          setCurrentUserTripcards([...currentUserTripcards, tripcard])
-        } catch (errors) {
-          console.error("Could not create tripcard", errors);
-          return { success: false, errors};
-        }    
-    }
+      const tripcard = await TripcardsApi.createTripcard(data);
+      setTripcard(tripcard);
+      setTripcardIds(new Set([...tripcardIds, data.destination_id]));
+      setTripcards([...tripcards, tripcard]);
+      setCurrentUserTripcards([...currentUserTripcards, tripcard])
+    } catch (err) {
+      console.error("Could not create tripcard", err);
+      return { success: false, err};
+    }    
+  }
 
 
   /** Deletes specific tripcard for user */
@@ -199,21 +198,17 @@ const App = () => {
     evt.preventDefault();
 
     try {
-          setDeletedTripcard(await TripcardsApi.deleteTripcard(id));
-
-          setTripcardIds(tripcardIds.delete(id));  
-           
-          setTripcards(tripcards.delete(id));
-          setCurrentUserTripcards(currentUserTripcards.filter((tripcard) => {
+      setDeletedTripcard(await TripcardsApi.deleteTripcard(id));
+      setTripcardIds(tripcardIds.delete(id));      
+      setTripcards(tripcards.delete(id));
+      setCurrentUserTripcards(currentUserTripcards.filter((tripcard) => {
           return tripcard.id !== id;
-          }))    
-
-        } catch (err) {
-            console.error("Could not delete", err.message);
-            return { success: false, err};
-        }
+      }))    
+    } catch (err) {
+      console.error("Could not delete", err.message);
+      return { success: false, err};
+    }
   }
-
 
 
   /** Checks if user has added specific business to tripcard */
@@ -224,7 +219,7 @@ const App = () => {
       const business = await TripcardsApi.getBusiness(business_id);
 
       const tripcard = currentUserTripcards.find(tripcard => 
-        tripcard.city == business.city && tripcard.state == business.state && tripcard.country == business.country);
+        fullDestination (tripcard) == fullDestination(business));
 
         if(tripcard) {
           setTripcard(tripcard);
@@ -232,12 +227,13 @@ const App = () => {
           let tripcardbusinesses = await TripcardsApi.getTripcardBusinesses(tripcard.id);
           
           if (tripcardbusinesses) {
-              const tripcardbusiness = tripcardbusinesses.find(t => t.id == business.id);
-  
-              return tripcardbusiness ? true : false;
-             }
+            const tripcardbusiness = tripcardbusinesses.find(t => t.id == business.id);
+            
+            if (tripcardbusiness)
+            return true;
+          }
         } 
-     } return false;
+     } 
   }
 
 
@@ -252,18 +248,17 @@ const App = () => {
           let business = businessRes[0];
           
           const tripcard = currentUserTripcards.find(tripcard => 
-            tripcard.city == business.city && tripcard.state == business.state && tripcard.country == business.country);
+            fullDestination (tripcard) == fullDestination(business));
 
-            if(tripcard) {
+          if(tripcard) {
              setTripcard(tripcard);
-
              let tripcardbusinesses = await TripcardsApi.getTripcardBusinesses(tripcard.id);
-          
+
               if (tripcardbusinesses) {
                 const tripcardbusiness = tripcardbusinesses.find(t => t.id == business.id);
   
                 if(tripcardbusiness) 
-                return tripcardbusiness ? true : false;
+                return true;
               }
             } 
         } 
@@ -276,9 +271,9 @@ const App = () => {
   async function addBusinessToTripcard(tripcard_id, business_id){
     try {
       await TripcardsApi.addBusinessToTripcard(tripcard_id, business_id);
-    } catch (errors) {
-      console.error("failed to add business to tripcard", errors);
-      return { success: false, errors };
+    } catch (err) {
+      console.error("failed to add business to tripcard", err);
+      return { success: false, err };
     }
   }
 
@@ -286,11 +281,11 @@ const App = () => {
   /** Remove a business from a specific tripcard */
   async function deleteBusinessFromTripcard(tripcard_id, business_id) {
     try {
-          await TripcardsApi.removeBusinessFromTripcard(tripcard_id, business_id);
-        } catch (errors) {
-          console.error("Could not delete", errors);
-          return { success: false, errors };
-        }
+      await TripcardsApi.removeBusinessFromTripcard(tripcard_id, business_id);
+    } catch (err) {
+      console.error("Could not delete", err);
+      return { success: false, err };
+    }
   }
 
 
@@ -311,14 +306,14 @@ const App = () => {
 
   async function createReview(data) {
     try { 
-          const review = await TripcardsApi.addReview(data);
-          setReview(review);
-          setReviews([...reviews, review]);
-          setCurrentUserReviews([...currentUserReviews, review])
-        } catch (errors) {
-          console.error("Could not create review", errors);
-          return { success: false, errors};
-        }    
+      const review = await TripcardsApi.addReview(data);
+      setReview(review);
+      setReviews([...reviews, review]);
+      setCurrentUserReviews([...currentUserReviews, review])
+    } catch (err) {
+      console.error("Could not create review", err);
+      return { success: false, err};
+    }    
   }
 
 

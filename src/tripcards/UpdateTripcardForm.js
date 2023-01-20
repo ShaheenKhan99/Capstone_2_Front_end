@@ -52,11 +52,11 @@ const UpdateTripcardForm = ({ tripcard }) => {
     let updatedTripcard;
 
     try {
-          updatedTripcard = await TripcardsApi.updateTripcard(tripcard.id, tripcardData); 
-        } catch(errors) {
-          setFormErrors(errors);
-          return { success: false, errors};
-        }
+      updatedTripcard = await TripcardsApi.updateTripcard(tripcard.id, tripcardData); 
+    } catch(errors) {
+      setFormErrors(errors);
+      return { success: false, errors};
+    }
   
     setFormData(data => ({ ...data }));
     setFormErrors([]);
@@ -84,49 +84,51 @@ const UpdateTripcardForm = ({ tripcard }) => {
           <Card.Subtitle className="mb-3">Created on: {formatDate(tripcard.created_on)}</Card.Subtitle>
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="keep_private">
-                  <Form.Check
-                      type="checkbox"
-                      name="keep_private"
-                      label="Keep private"
-                      value="keep_private"
-                      checked={formData.keep_private}
-                      onChange={handleChange}
+                  <Form.Check type="checkbox"
+                              name="keep_private"
+                              label="Keep private"
+                              value="keep_private"
+                              checked={formData.keep_private}
+                              onChange={handleChange}
                   />
               </Form.Group>
 
               <Form.Group className="mb-2" controlId="formData.has_visited">
                   <p className="mb-2">Select if you have visited this destination</p>
-                    <Form.Check
-                        type="checkbox"
-                        name="has_visited"
-                        label="Visited"
-                        value="has_visited"
-                        checked={formData.has_visited}
-                        onChange={handleChange}
+                    <Form.Check type="checkbox"
+                                name="has_visited"
+                                label="Visited"
+                                value="has_visited"
+                                checked={formData.has_visited}
+                                onChange={handleChange}
                     />
               </Form.Group>
 
               {formErrors.length ? 
-                    <Alert variant="danger">Could not update tripcard. Please try again later </Alert> 
-                    : null}
+                <Alert variant="danger">Could not update tripcard. Please try again later </Alert> 
+              : 
+                null
+              }
 
               {saved ?
-                    <Alert variant="success">
-                      <Alert.Link href="/">Tripcard Updated! {' '} Explore</Alert.Link>
-                    </Alert>        
-                    : null }
+                <Alert variant="success">
+                  <Alert.Link href="/">Tripcard Updated! {' '} Explore other places</Alert.Link>
+                </Alert>        
+              : 
+                null 
+              }
 
-            <div className="text-center">
-              <Button className="mb-2" 
-                      size="sm"
-                      variant="secondary" 
-                      type="submit"
-                      onClick={handleSubmit}>
-                Update Tripcard
-              </Button>
-            </div>
-          </Form>
-      </Card>
+              <div className="text-center">
+                <Button className="mb-2" 
+                        size="sm"
+                        variant="secondary" 
+                        type="submit"
+                        onClick={handleSubmit}>
+                  Update Tripcard
+                </Button>
+              </div>
+            </Form>
+        </Card>
     </Container>
   );
 }

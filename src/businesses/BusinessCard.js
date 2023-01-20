@@ -47,10 +47,7 @@ const BusinessCard = (business) => {
                 :
                   null }
 
-                
                   <Card.Text className="lh-1">{business.review_count} Yelp reviews</Card.Text>
-                
-
                 
                   <div className="stars-rating">
                     <img 
@@ -59,8 +56,6 @@ const BusinessCard = (business) => {
                         alt="star-rating"
                     />
                   </div>
-
-                  
                   
                 </Card.Body>
               </Card>

@@ -36,4 +36,8 @@ const getStars = business => {
 const formatDate = date =>  
   moment(date, "YYYY-MM-DD hh:mm:ss+ZZ").format("MMMM DD YYYY");
 
-export { getStars, formatDate };
+
+const fullDestination = business => business.city + "#" + business.state + "#" +
+business.country
+
+export { getStars, formatDate, fullDestination };

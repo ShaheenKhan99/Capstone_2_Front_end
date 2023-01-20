@@ -36,8 +36,8 @@ const BusinessList = () => {
       try {
         let businesses = await TripcardsApi.getBusinessesByCategoryAndDestination(category_name, city);
         setBusinesses(businesses);
-       } catch (errors) {
-        console.error("There are no businesses saved by users", errors);
+       } catch (err) {
+        console.error("There are no businesses saved by users", err);
        }  
     }
   
@@ -53,10 +53,9 @@ const BusinessList = () => {
 
           <Container className="py-4" style={{ height: "100%" }}>
             {businesses.length ? (
-              <Row className="BusinessList-row gy-3" style={{ height: "50%"}}>
-              
+              <Row className="BusinessList-row gy-4">
                 {businesses.map((business) => (
-                  <Col sm={6} md={4} className="BusinessList-col">
+                  <Col xs={6} md={4} className="BusinessList-col">
 
                     <Link className="BusinessCard-card" 
                           to={`/businesses/${business.id}`}
@@ -85,7 +84,6 @@ const BusinessList = () => {
                       </Link>
                     </Col>
                 ))}
-
                 </Row>)
               :
                 <Link to="/"
@@ -93,7 +91,7 @@ const BusinessList = () => {
                   <Card className="p-4"
                         style={{ backgroundColor: "#8860D0", 
                                  color: "white",
-                                 width: "15rem",
+                                 width: "18rem",
                                  margin: "auto" }}>
                     <h5 className="text-center">No favorites saved yet. Click here and save some </h5>
                   </Card>

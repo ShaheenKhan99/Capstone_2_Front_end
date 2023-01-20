@@ -19,10 +19,10 @@ const SearchTripcards = (props)  => {
 
   // Pass current state when user submits search button
   const handleSearch = (e) => {
-      e.preventDefault();
+    e.preventDefault();
 
-      // takes care of accidentally trying to search for just spaces
-      props.searchDBForTripcards(city.trim() || undefined, username.trim() || undefined);
+    // takes care of accidentally trying to search for just spaces
+    props.searchDBForTripcards(city.trim() || undefined, username.trim() || undefined);
   };
 
   return (

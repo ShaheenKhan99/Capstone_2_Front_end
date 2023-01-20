@@ -32,7 +32,7 @@ const ReviewCard = ({ id,
   const { currentUser } = useContext(UserContext);
 
   // JSX if currentUser is review owner
-  if (currentUser.id === user_id) {
+  if (currentUser.id == user_id) {
     return (
        <Card className="ReviewCard-card">
           <Row>
@@ -48,13 +48,12 @@ const ReviewCard = ({ id,
                 {image_url ?  
                   <Card.Link href={image_url} target="_blank">See photo</Card.Link>
                 : 
-                  null }
+                  null 
+                }
 
                 <Card.Text className="ReviewCard-date mt-2">Created: {formatDate(created_on)}</Card.Text>
 
-              </Card.Body> 
-
-              
+              </Card.Body>   
             </Col>
 
             <Col sm={3}>
@@ -89,7 +88,8 @@ const ReviewCard = ({ id,
                 {image_url ?
                   <Card.Link href={image_url} target="_blank">See photo</Card.Link>
                 : 
-                  null }
+                  null 
+                }
 
             </Card.Body>   
           </Card>

@@ -6,7 +6,7 @@ const NotFound = () => {
         <Container className="NotFound-container">
           <div className="NotFound-card row">
             <div className="col-md-12">
-              <h3 className="text-center">Oops! Looks like this is not what you are searching for..</h3>
+              <h5 className="text-center">Oops! Looks like this is not what you are searching for.</h5>
             </div>
           </div>
         </Container>

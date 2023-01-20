@@ -77,7 +77,6 @@ const UpdateProfileForm = () => {
   try {
         updatedUser = await TripcardsApi.saveProfile(currentUser.id, profileData);
   } catch (errors) {
-
     setFormErrors(errors);
     return;
   }
@@ -116,8 +115,8 @@ const UpdateProfileForm = () => {
         setCurrentUser(false);
         navigate("/")
       }
-    } catch (err) {
-      setFormErrors(err);
+    } catch (errors) {
+      setFormErrors(errors);
       return;
     }
     setFormErrors([]); 
@@ -190,12 +189,16 @@ const UpdateProfileForm = () => {
             {formErrors.length ? 
                   <Alert type="danger"
                     messages={["Could not update form"]} />
-                  : null } 
+            : 
+              null 
+            } 
 
             {saveConfirmed ?
               <Alert type="success"
                       messages={["Updated successfully"]} />
-                    : null }
+            : 
+              null
+            }
 
             <div className="d-grid gap-5 d-sm-flex justify-content-center">
               <Button variant="secondary"

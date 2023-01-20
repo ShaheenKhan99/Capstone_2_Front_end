@@ -12,9 +12,11 @@ import "./Homepage.css";
 
 /** Homepage of site.
  * 
+ * Renders LearnMoreModal that  provides information about "tripcards"
+ * 
  * Searches for businesses on Yelp from this page. Does not require any login
  * 
- * Routes -> Homepage
+ * Routes -> Homepage -> LearnMoreModal
  * 
  */
 
@@ -28,20 +30,20 @@ const Homepage = () => {
   const searchYelp = async (term, location) => {
 
     try {
-          let businesses = await TripcardsApi.getBusinessesFromYelpApi(term, location); 
-          setBusinesses(businesses);
-        } catch (error) {
-          console.error(error.message);
-          setShow(true);
-       }    
+      let businesses = await TripcardsApi.getBusinessesFromYelpApi(term, location); 
+      setBusinesses(businesses);
+    } catch (err) {
+      console.error(err.message);
+      setShow(true);
+    }    
   }
 
 
   return (
         <>
           <div className="Homepage mt-4">
-            <div className="Homepage-heading text-center p-3">
-              <h5>Create tripcards for places to visit at your dream destinations</h5>
+            <div className="Homepage-headingDiv text-center p-3">
+              <h5 className="mb-3">Explore and save favorite places at dream destinations on your tripcards!</h5>
               <LearnMoreModal />
             </div>
 

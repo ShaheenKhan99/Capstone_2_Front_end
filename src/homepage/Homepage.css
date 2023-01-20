@@ -2,10 +2,11 @@
   outline: none;
 }
 
-.Homepage-heading {
+.Homepage-headingDiv {
   font-weight: 600;
   color: #450b45;
 }
+
 
 
 .Homepage-noResults {

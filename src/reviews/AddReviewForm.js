@@ -17,7 +17,7 @@ import UserContext from "../auth/UserContext";
 
 const AddReviewForm = ({ business }) => {
 
-  const { currentUser, createReview, setReview,  } = useContext(UserContext);
+  const { currentUser, createReview, setReview  } = useContext(UserContext);
   
   const [formData, setFormData] = useState({ 
                                             user_id: "",
@@ -49,20 +49,20 @@ const AddReviewForm = ({ business }) => {
               rating: formData.rating,
               created_on: new Date(),
               image_url: formData.image_url        
-      }
+    }
 
     try {
-          const review = await createReview(data);
-          setReview(review);
-          setFormData(data => ({ ...data }));
-         } catch (errors) {
-          setFormErrors(errors);
-          return;
-        }
-        setFormErrors([]);
-        setSaved(true)
-        setButtonDisabled(true); 
-    } 
+      const review = await createReview(data);
+      setReview(review);
+      setFormData(data => ({ ...data }));
+    } catch (err) {
+      setFormErrors(err);
+      return;
+    }
+    setFormErrors([]);
+    setSaved(true)
+    setButtonDisabled(true); 
+  } 
   
 
   function handleChange(evt) {
@@ -121,28 +121,32 @@ const AddReviewForm = ({ business }) => {
                   />
                 </div>
             
-                  {formErrors.length ? 
-                    <Alert variant="danger">
-                      <Alert.Link href="/"> Review already added. {' '} Explore other places</Alert.Link>
-                    </Alert> 
-                    : null}
+                {formErrors.length ? 
+                  <Alert variant="danger">
+                    <Alert.Link href="/"> Review already added. {' '} Explore other places</Alert.Link>
+                  </Alert> 
+                : 
+                  null
+                }
 
-                  {saved ?
-                    <Alert variant="success">Added review {' '}
-                      <Alert.Link href="/">Explore other places</Alert.Link>
-                    </Alert>        
-                    : null }
+                {saved ?
+                  <Alert variant="success">Added review {' '}
+                    <Alert.Link href="/">Explore other places</Alert.Link>
+                  </Alert>        
+                : 
+                  null 
+                }
 
-                  <div className="d-grid gap-5 d-sm-flex justify-content-center">
-                    <Button variant="outline-secondary"
-                            type="submit"
-                            size="md"
-                            disabled={buttonDisabled}
-                            onSubmit={handleSubmitReview}>
-                      Submit Review
-                    </Button>
-                  </div>
-                </form>
+                <div className="d-grid gap-5 d-sm-flex justify-content-center">
+                  <Button variant="outline-secondary"
+                          type="submit"
+                          size="md"
+                          disabled={buttonDisabled}
+                          onSubmit={handleSubmitReview}>
+                    Submit Review
+                  </Button>
+                </div>
+              </form>
             </Card.Body>
           </Card>
         </Container>

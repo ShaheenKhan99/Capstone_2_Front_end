@@ -26,12 +26,12 @@ export const getCorrectBusiness = async (business) => {
   async function getDBBusinessForUser(){
 
     try {
-          let resultRes = await TripcardsApi.getBusinesses(business.city, business.yelp_id);
-          let result = resultRes[0];
-          return result;
-        } catch (err) {
-          console.error(err);
-        }
+      let resultRes = await TripcardsApi.getBusinesses(business.city, business.yelp_id);
+      let result = resultRes[0];
+      return result;
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   
@@ -42,11 +42,11 @@ export const getCorrectBusiness = async (business) => {
     let result = await getDBCategoryForUser();
 
     if(result) {
-        dbCategory = result;
-      } else {
-        dbCategory = await addCategoryToDB();     
-      }
-      return dbCategory;   
+      dbCategory = result;
+    } else {
+      dbCategory = await addCategoryToDB();     
+    }
+    return dbCategory;   
   }
 
 
@@ -54,12 +54,12 @@ export const getCorrectBusiness = async (business) => {
   async function getDBCategoryForUser(){
     let category_name = business.sub_category;
       try {
-            let resultRes = await TripcardsApi.getCategories(category_name);
-            let result = resultRes[0];
-            return result;
-          } catch (err) {
-            console.error(err);
-          }
+        let resultRes = await TripcardsApi.getCategories(category_name);
+        let result = resultRes[0];
+        return result;
+      } catch (err) {
+        console.error(err);
+      }
   }
 
 
@@ -68,11 +68,11 @@ export const getCorrectBusiness = async (business) => {
   async function addCategoryToDB() {
     let category_name = business.sub_category;
     try {
-          const response = await TripcardsApi.createCategory(category_name);
-          return response;
-        } catch (err) {
-          console.error(err.message)
-        }  
+      const response = await TripcardsApi.createCategory(category_name);
+      return response;
+    } catch (err) {
+      console.error(err.message)
+    }  
   }
 
 
@@ -106,12 +106,12 @@ export const getCorrectBusiness = async (business) => {
           }
         
       try {
-            const response = await TripcardsApi.addBusinessToDB(data);
-            return response;
-          } catch (err) {
-            console.error(err.message)
-            return { success: false, err};
-          }  
+        const response = await TripcardsApi.addBusinessToDB(data);
+        return response;
+      } catch (err) {
+        console.error(err.message)
+        return { success: false, err};
+      }  
     }
 
 }

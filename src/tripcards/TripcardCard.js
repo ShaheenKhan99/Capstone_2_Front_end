@@ -59,10 +59,9 @@ function TripcardCard(tripcard) {
                         </Card.Body>  
                         <Card.Footer style={{ color: "#450b45" }}>Created: {formatDate(tripcard.created_on)}</Card.Footer> 
                     </Card> 
-                   }
+                }
             </Link>          
         );
-    
   }
 
 export default TripcardCard;

@@ -26,7 +26,8 @@ const SignupForm = ({ signup }) => {
                                     password: "",
                                     first_name: "",
                                     last_name: "",
-                                    email: ""
+                                    email: "",
+                                    bio: ""
                                 });
 
 
@@ -69,7 +70,8 @@ const SignupForm = ({ signup }) => {
                           className="form-control"
                           value={formData.username}
                           onChange={handleChange}
-                          />
+                          required
+                  />
               </div>
               <div className="form-group mb-2">
                 <label className="label" htmlFor="password">Password</label>
@@ -77,7 +79,8 @@ const SignupForm = ({ signup }) => {
                           className="form-control"
                           value={formData.password}
                           onChange={handleChange}
-                          />
+                          required
+                  />
               </div>
               <div className="form-group mb-2">
                 <label className="label" htmlFor="first_name">First name</label>
@@ -85,7 +88,8 @@ const SignupForm = ({ signup }) => {
                           className="form-control"
                           value={formData.first_name}
                           onChange={handleChange}
-                          />
+                          required
+                  />
               </div>
               <div className="form-group mb-2">
                 <label className="label" htmlFor="last_name">Last name</label>
@@ -93,7 +97,8 @@ const SignupForm = ({ signup }) => {
                           className="form-control"
                           value={formData.last_name}
                           onChange={handleChange}
-                          />
+                          required
+                  />
               </div>
               <div className="form-group mb-2">
                 <label className="label" htmlFor="email">Email</label>
@@ -102,13 +107,26 @@ const SignupForm = ({ signup }) => {
                           className="form-control"
                           value={formData.email}
                           onChange={handleChange}
-                          />
+                          required
+                  />
               </div>
+              <div className="form-group mb-3">
+              <label htmlFor="bio" className="form-label">Bio</label>
+                <textarea name="bio"
+                          type="text-area"
+                          className="form-control"
+                          value={formData.bio}
+                          placeholder="Enter bio"
+                          onChange={handleChange}
+                />
+            </div>
 
               {formErrors.length ? 
                   <Alert type="danger"
-                    messages={[formErrors]} />
-                  : null } 
+                         messages={["Could not sign you up. Please try again."]} />
+              : 
+                null 
+              } 
 
 
               <div className="d-grid gap-2 d-md-flex justify-content-md-end">

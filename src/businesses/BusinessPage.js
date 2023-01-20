@@ -115,9 +115,9 @@ import "./BusinessPage.css";
           setShow(true);
           setAdded(true);
           setButtonDisabled(true);
-          } catch (error) {
-            console.error("Could not add business to tripcard", error.message);
-            return { success: false, error};
+          } catch (err) {
+            console.error("Could not add business to tripcard", err.message);
+            return { success: false, err};
           }   
   }
  
@@ -130,7 +130,7 @@ import "./BusinessPage.css";
         setCreated(true); 
         setShow(true); 
         return dbTripcard;
-      } else {
+    } else {
       setIsCreate(true);
     }
   }
@@ -141,11 +141,11 @@ import "./BusinessPage.css";
   function getDBTripcardForUser(){
    
     let tripcard = currentUserTripcards.find(tripcard => tripcard.destination_id == business.destination_id);
-    if (!tripcard){
-      setIsCreate(true);
-      } else {
-        return tripcard;
-      }  
+    if (tripcard) {
+      return tripcard;
+    } else {
+      setIsCreate(true);  
+    }  
   }
 
 
@@ -166,7 +166,9 @@ import "./BusinessPage.css";
   return (
       <>
         <div className="p-3">
-        {!created ?
+          {created ?
+            null   
+          :
             <Container className="YelpBusinessPage-createTripcard mb-4 p-4">
               <h5>Let's create a tripcard for {business.city} first </h5> 
 
@@ -176,20 +178,20 @@ import "./BusinessPage.css";
                 />
 
             </Container>
-        :
-          null } 
+          } 
         
 
             <Container className="BusinessPage-detailsContainer py-1">
                 
-                {show ?
-                    <Alert variant="success">
+              {show ?
+                  <Alert variant="success">
                       <Alert.Link href="/">Added!{' '}   Explore other places</Alert.Link> 
-                    </Alert>
-                  :
-                    null }     
+                  </Alert>
+              :
+                null 
+              }     
             
-              <Card className="BusinessPage-card p-4" style={{ "color": "#450b45" }}> 
+                <Card className="BusinessPage-card p-4"> 
                 
                   <Row className="BusinessPage-row">
                       <Col sm={5}>
@@ -203,7 +205,7 @@ import "./BusinessPage.css";
                                     src={noImage} 
                                     alt='No image available' />
                          
-                      }
+                        }
                       </Col>
 
                       <Col sm={4}>
@@ -216,7 +218,8 @@ import "./BusinessPage.css";
                           {business.phone ?
                              <Card.Text className="lh-1 mb-4">Phone:  {business.phone}</Card.Text>
                           : 
-                            null}
+                            null
+                          }
 
                           <Card.Text className="BusinessPage-categoryName lh-1">Category: {business.category_name}</Card.Text>
             
@@ -243,53 +246,52 @@ import "./BusinessPage.css";
                                             setIsCreate={isCreate}
                                             onClick={handleCreateTripcardClick}
                       />
-                     }
-                        {added ?
-                          <div className="py-5">
-                            <Button variant="outline-danger" 
-                                    onClick={handleRemove}>
-                                Delete
-                            </Button>
-                          </div> 
-                        : 
-                          <div className="py-5 ">
-                            <Button variant="success"
-                                    size="md"
-                                    disabled={buttonDisabled}
-                                    onClick={handleAdd}>
+                    }
+
+                    {added ?
+                      <div className="py-5">
+                        <Button variant="outline-danger" 
+                                onClick={handleRemove}>
+                          Delete
+                        </Button>
+                      </div> 
+                    : 
+                      <div className="py-5 ">
+                        <Button variant="success"
+                                size="md"
+                                disabled={buttonDisabled}
+                                onClick={handleAdd}>
                               Add
-                            </Button>
-                          </div>
-                        }  
+                        </Button>
+                      </div>
+                    }  
             
 
-                        {!reviewed ?
-                          <div className="py-3">
-                            <Button variant="outline-secondary" 
-                                    onClick={handleAddReviewClick}>
-                               Write a review
-                            </Button>
-                          </div>
-                        :
-                          null}
-                      </Col>  
-                    </Row>     
+                    {reviewed ?
+                      null
+                    :
+                      <div className="py-3">
+                        <Button variant="outline-secondary" 
+                                onClick={handleAddReviewClick}>
+                          Write a review
+                        </Button>
+                      </div>}
+                  </Col>  
+                </Row>     
                                   
-                </Card>               
-              </Container>
-
-             
-            
+              </Card>               
+            </Container>           
 
             <div className="AddReview-container mt-5 mb-5">
-              {isAddReview ? <AddReviewForm  
-                                          key={id}
-                                          id={id}
-                                          addReview={addReview}
-                                          setIsAddReview={setIsAddReview}
-                                          business={business}
-                          /> 
-                        : null }
+              {isAddReview ? <AddReviewForm  key={id}
+                                              id={id}
+                                              addReview={addReview}
+                                              setIsAddReview={setIsAddReview}
+                                              business={business}
+                              /> 
+              : 
+                null 
+              }
             </div>
         
             <Container className="Reviews-card container mt-5">
@@ -307,9 +309,9 @@ import "./BusinessPage.css";
                     <h5 className="text-center mt-5" style={{ 'color': '#450b45' }}>No Tripcards user reviews yet!</h5>
                   </div>
                 }
-            </Container>
-    </div>
-    <Footer />
+          </Container>
+      </div>
+      <Footer />
     </>
   );
   

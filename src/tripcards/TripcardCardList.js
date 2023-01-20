@@ -20,10 +20,10 @@ import { Container, Row, Col } from "react-bootstrap";
         <Container className="TripcardCardList">
 
               {tripcards.length ? (
-               <Row className="TripcardCardList-row row-flex g-4">
+                <Row className="TripcardCardList-row row-flex g-4">
 
-                {tripcards.map(t => (
-                   <Col md={4} className="TripcardCardList-col mb-3">
+                  {tripcards.map(t => (
+                    <Col md={4} className="TripcardCardList-col mb-3">
                         <TripcardCard key={t.id}
                                       id={t.id}
                                       destination_id={t.destination_id}
@@ -37,18 +37,17 @@ import { Container, Row, Col } from "react-bootstrap";
                                       keep_private={t.keep_private}
                                     
                         />
-                   </Col>
-                  ))
-                }
-                  </Row>)
-                :
-                  <div>
-                    <p>No tripcards yet!</p> 
-                  </div> 
-                }
+                    </Col>
+                  ))}
+                </Row>)
+              :
+                <div className="text-center" style={{ 'color': '#450b45' }}>  
+                  <h5 className="text-center py-3">No tripcards yet!</h5>
+                </div>
+              }
        
-      </Container>
-  );
+        </Container>
+    );
 }
 
 export default TripcardCardList;

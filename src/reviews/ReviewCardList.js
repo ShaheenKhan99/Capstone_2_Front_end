@@ -18,21 +18,21 @@ import ReviewCard from "./ReviewCard";
         {reviews ? 
           reviews.map(r => (
                 <ReviewCard key={r.id}
-                        id={r.id}
-                        user_id={r.user_id}
-                        username={r.username}
-                        business_id={r.business_id}
-                        business_name={r.business_name}
-                        text={r.text}
-                        rating={r.rating}
-                        created_on={r.created_on}
-                        image_url={r.image_url} 
-                        updateReview={updateReview}
+                            id={r.id}
+                            user_id={r.user_id}
+                            username={r.username}
+                            business_id={r.business_id}
+                            business_name={r.business_name}
+                            text={r.text}
+                            rating={r.rating}
+                            created_on={r.created_on}
+                            image_url={r.image_url} 
+                            updateReview={updateReview}
                         
                 />
-            )) 
-          :
-            null}
+          )) 
+        :
+          null}
       </div>
   );
 }

@@ -77,7 +77,8 @@ const TripcardPage = ( updateTripcard ) => {
                           <Alert variant="danger">
                             <Alert.Link href="/"> Deleted!    Explore other places</Alert.Link> 
                           </Alert>
-                        : null 
+                        : 
+                          null 
                         } 
                         </div>
 
@@ -89,8 +90,8 @@ const TripcardPage = ( updateTripcard ) => {
                             </Card.Text>
                           
                         </Col>
-                          <Col sm={5}>
-                            <Card.Title className="mt-1 mb-2">Tripcard for {tripcard.city}  </Card.Title>
+                        <Col sm={5}>
+                          <Card.Title className="mt-1 mb-2">Tripcard for {tripcard.city}  </Card.Title>
                             <Card.Subtitle>
                             {tripcard.state}  {tripcard.country}
                             </Card.Subtitle>
@@ -100,51 +101,54 @@ const TripcardPage = ( updateTripcard ) => {
                         <Col sm={3}>
                           
                           {currentUser.id == tripcard.user_id ? 
-                          <>
-                          <div className="pb-2 mb-4">
-                              <Button variant="outline-light" 
-                                      onClick={handleUpdateClick}>
+                            <>
+                              <div className="pb-2 mb-4">
+                                <Button variant="outline-light" 
+                                        onClick={handleUpdateClick}>
                                     Edit
-                              </Button>
-                          </div>
+                                </Button>
+                              </div>
 
-                          <div className="pb-2 mb-4">
-                              <Button variant="outline-light" 
-                                      disabled={buttonDisabled}
-                                      onClick={handleDeleteClick}>
+                              <div className="pb-2 mb-4">
+                                <Button variant="outline-light" 
+                                        disabled={buttonDisabled}
+                                        onClick={handleDeleteClick}>
                                     Delete
-                              </Button>
-                          </div>
+                                </Button>
+                              </div>
                           
-                        </>
-                        : null }
-                        </Col>
+                            </>
+                          : 
+                            null 
+                          }
+                      </Col>
                     </Row>
                   </Card.Body>
                 </Card>
           </Container>
 
-        <div className="updateTripcardForm">
-          {isUpdate ? <UpdateTripcardForm 
-                                    key={id}
-                                    id={id}
-                                    updateTripcard={updateTripcard}
-                                    setIsUpdate={setIsUpdate}
-                                    tripcard={tripcard}
-                  /> : null }
-        </div>
+          <div className="updateTripcardForm">
+            {isUpdate ? <UpdateTripcardForm key={id}
+                                            id={id}
+                                            updateTripcard={updateTripcard}
+                                            setIsUpdate={setIsUpdate}
+                                            tripcard={tripcard}
+                        /> 
+            : 
+              null 
+            }
+          </div>
 
       
-        <Container className="TripcardBusinesses-section p-4">
-          <h5 className="text-center">Saved places</h5> 
-            {tripcard.tripcardBusinesses.length ? 
-              ( 
-               <TripcardBusinesses businesses={businesses}
+          <Container className="TripcardBusinesses-section p-4">
+            <h5 className="text-center">Saved places</h5> 
+              {tripcard.tripcardBusinesses.length ? 
+               
+                <TripcardBusinesses businesses={businesses}
                 />
-              )
-            : 
-              <Link to="/"
-                    style={{ textDecoration: "none" }} >
+              : 
+                <Link to="/"
+                      style={{ textDecoration: "none" }} >
                   <Card className="p-4"
                         style={{ backgroundColor: "#8860D0", 
                                  color: "white",
@@ -152,8 +156,8 @@ const TripcardPage = ( updateTripcard ) => {
                                  margin: "auto" }}>
                     <h5 className="text-center">No favorites saved yet. Click here and save some </h5>
                   </Card>
-              </Link>
-            }
+                </Link>
+              }
         </Container>
       </div>
   );

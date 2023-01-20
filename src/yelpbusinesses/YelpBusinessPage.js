@@ -5,6 +5,7 @@ import { Container, Row, Col, Card, Button, Alert } from "react-bootstrap";
 import TripcardsApi from "../api/api";
 import UserContext from "../auth/UserContext";
 import { getCorrectBusiness } from "../common/BusinessHelpers";
+import { fullDestination } from "../common/Helpers";
 import CreateTripcardForm from "../tripcards/CreateTripcardForm";
 import YelpBusinessReviews from "./YelpBusinessReviews";
 import { getStars } from '../common/Helpers';
@@ -100,16 +101,16 @@ const YelpBusinessPage = () => {
 
     // add business to tripcard
     try {
-        await addBusinessToTripcard(tripcard.id, tripcardBusiness.id)
+      await addBusinessToTripcard(tripcard.id, tripcardBusiness.id)
         
-        setAdded(true);
-        setShow(true);
-        setButtonDisabled(true);
-        } catch (error) {
-          console.error("Could not add business to tripcard", error.message);
-          return { success: false, error };
-        }  
-    } 
+      setAdded(true);
+      setShow(true);
+      setButtonDisabled(true);
+    } catch (err) {
+      console.error("Could not add business to tripcard", err.message);
+      return { success: false, err };
+    }  
+  } 
 
     
   /** Get correct tripcard for user. If tripcard does not exist, wait to get created tripcard */
@@ -117,39 +118,40 @@ const YelpBusinessPage = () => {
   async function getCorrectTripcard() {
     let dbTripcard = await getDBTripcardForUser();
     if (dbTripcard) {
-        setDBTripcard(dbTripcard);  
-        setCreated(true);
-        return dbTripcard;
+      setDBTripcard(dbTripcard);  
+      setCreated(true);
+      return dbTripcard;
     }
   }
 
   /** Fetch tripcard from DB. If tripcard not created, it sets a tripcard error and prompts user to create a tripcard */
 
   function getDBTripcardForUser(){
-    let tripcard = currentUserTripcards.find(tripcard => tripcard.city == business.city && tripcard.state == business.state && tripcard.country == business.country);
+    let tripcard = currentUserTripcards.find(tripcard => fullDestination (tripcard) == fullDestination(business));
 
-    if (!tripcard){
+    if (tripcard){
+      return tripcard;
+    } else {
       setIsCreate(true);
-      } else {
-        return tripcard;
-      }  
+    }  
   }
 
   return (
           <div className="p-3">
 
-            {!created ?
-              <Container className="YelpBusinessPage-createTripcard mb-4 p-4">
-                    <h5>Let's create a tripcard for {business.city}, {business.state}  {business.country}  first </h5> 
-
-                      <CreateTripcardForm   business={business}
-                                            setIsCreate={isCreate}
-                                            onClick={handleCreateTripcardClick}
-                      />
-
-              </Container>
+            {created ?
+              null
             :
-              null }  
+              <Container className="YelpBusinessPage-createTripcard mb-4 p-4">
+                <h5>Let's create a tripcard for {business.city}, {business.state}  {business.country}  first </h5> 
+
+                <CreateTripcardForm   business={business}
+                                      setIsCreate={isCreate}
+                                      onClick={handleCreateTripcardClick}
+                />
+
+              </Container> 
+            }  
 
             <div className="mt-4">
               <Container className="YelpBusinessPage-container py-1">      
@@ -200,29 +202,28 @@ const YelpBusinessPage = () => {
                             See more on Yelp
                             </Card.Link>
                           </div>
-                      </Col> 
+                        </Col> 
                     
-                      <Col sm={3} className="YelpBusinessPage-addButton text-center">
+                        <Col sm={3} className="YelpBusinessPage-addButton text-center">
                       
-                        {currentUser ? 
-                          <>
-                            {created ? 
-                              null 
-                            :
-                              <CreateTripcardForm   business={business}
-                                            setIsCreate={isCreate}
-                                            onClick={handleCreateTripcardClick}
-                              />
-                            }
+                          {currentUser ? 
+                            <>
+                              {created ? 
+                                null 
+                              :
+                                <CreateTripcardForm   business={business}
+                                                      setIsCreate={isCreate}
+                                                      onClick={handleCreateTripcardClick}
+                                />
+                              }
                             
-                            {added ?    
-
+                              {added ?    
                                 <div className="py-5 text-center" >
                                   <Alert variant="success">
                                     <Alert.Link href="/">Saved!   Explore other places</Alert.Link> 
                                   </Alert>
                                 </div>
-                            : 
+                              : 
                                 <div className="py-5 text-center">
                                   <Button variant="outline-success"
                                           size="md" 
@@ -231,10 +232,11 @@ const YelpBusinessPage = () => {
                                       Add
                                   </Button>
                                 </div>
-                            }                         
-                          </>
-                        : 
-                          null}
+                              }                         
+                            </>
+                          : 
+                            null
+                          }
                  
                         </Col>   
                       </Row>
@@ -243,10 +245,10 @@ const YelpBusinessPage = () => {
               </Container>
             </div>
 
-              <Container className="mt-5">
-                  <h5 className="YelpBusinessePage-reviews text-center">Reviews from Yelp</h5>
-                 <YelpBusinessReviews reviews={yelpReviews} />
-              </Container>
+            <Container className="mt-5">
+              <h5 className="YelpBusinessePage-reviews text-center">Reviews from Yelp</h5>
+              <YelpBusinessReviews reviews={yelpReviews} />
+            </Container>
           </div>
   );
 }

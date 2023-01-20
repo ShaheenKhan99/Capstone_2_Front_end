@@ -17,7 +17,8 @@ const LearnMoreModal = () => {
   return (
     <>
       <Button variant="outline-info" 
-              onClick={handleShow}>
+              onClick={handleShow}
+              className="mb-2">
         Learn more
       </Button>
 
