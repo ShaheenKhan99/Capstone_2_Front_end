@@ -49,21 +49,21 @@ Backend deployed on Heroku
 
 ### Screenshots
 
-![Home Page](./readme_images/HomePage.png "HomePage")
+![Home Page](/readme_images/HomePage.png "HomePage")
 
-![Yelp Businesses List](./readme_images/YelpBusinessesList.png "Businesses List")
+![Yelp Businesses List](/readme_images/YelpBusinessesList.png "Businesses List")
 
-![User Favorites](./readme_images/UserFavorites.png "User Favorites")
+![User Favorites](/readme_images/UserFavorites.png "User Favorites")
 
-![Yelp Business Details](./readme_images/YelpBusinessDetails.png "Yelp Business Details")
+![Yelp Business Details](/readme_images/YelpBusinessDetails.png "Yelp Business Details")
 
-![Business Details](./readme_images/BusinessDetails.png "Business Details")
+![Business Details](/readme_images/BusinessDetails.png "Business Details")
 
-![All Tripcards](./readme_images/AllTripcards.png "All Tripcards")
+![All Tripcards](/readme_images/AllTripcards.png "All Tripcards")
 
-![Tripcard Page](./readme_images/TripcardPage.png "Tripcard Page")
+![Tripcard Page](/readme_images/TripcardPage.png "Tripcard Page")
 
-![My Tripcards](./readme_images/MyTripcards.png "My Tripcards")
+![My Tripcards](/readme_images/MyTripcards.png "My Tripcards")
 
 
 
