@@ -44,26 +44,26 @@ Backend deployed on Heroku
    
 ### Schema Design
 
-![DB Schema](/DB_Schema_v5.png "DB_Schema diagram")
+![DB Schema](src/DB_Schema_v5.png "DB_Schema diagram")
 
 
 ### Screenshots
 
-![Home Page](/readme_images/HomePage.png "HomePage")
+![Home Page](src/readme_images/HomePage.png "HomePage")
 
-![Yelp Businesses List](/readme_images/YelpBusinessesList.png "Businesses List")
+![Yelp Businesses List](src/readme_images/YelpBusinessesList.png "Businesses List")
 
-![User Favorites](/readme_images/UserFavorites.png "User Favorites")
+![User Favorites](src/readme_images/UserFavorites.png "User Favorites")
 
-![Yelp Business Details](/readme_images/YelpBusinessDetails.png "Yelp Business Details")
+![Yelp Business Details](src/readme_images/YelpBusinessPage.png "Yelp Business Details")
 
-![Business Details](/readme_images/BusinessDetails.png "Business Details")
+![Business Details](src/readme_images/BusinessPage.png "Business Details")
 
-![All Tripcards](/readme_images/AllTripcards.png "All Tripcards")
+![All Tripcards](src/readme_images/AllTripcards.png "All Tripcards")
 
-![Tripcard Page](/readme_images/TripcardPage.png "Tripcard Page")
+![Tripcard Page](src/readme_images/TripcardPage.png "Tripcard Page")
 
-![My Tripcards](/readme_images/MyTripcards.png "My Tripcards")
+![My Tripcards](src/readme_images/MyTripcards.png "My Tripcards")
 
 
 
