@@ -34,10 +34,21 @@ const getStars = business => {
 */
 
 const formatDate = date =>  
-  moment(date, "YYYY-MM-DD hh:mm:ss+ZZ").format("MMMM DD YYYY");
+  moment(date, "YYYY-MM-DD hh:mm:ss+ZZ").format("MMMM DD, YYYY");
 
 
 const fullDestination = business => business.city + "#" + business.state + "#" +
 business.country
 
-export { getStars, formatDate, fullDestination };
+
+
+const getAverageRating = business => {
+  const average = business.reviews.reduce((total, next) => total + Number(next.rating), 0) / business.reviews.length;
+  return Math.round(average * 10) / 10 ;
+}
+
+
+
+export { getStars, formatDate, fullDestination, getAverageRating };
+
+

@@ -97,6 +97,7 @@ const AddReviewForm = ({ business }) => {
                           value={formData.rating}
                           onChange={handleChange}
                           className="custom-select mx-2"
+                          required
                     >
                       <option disabled>Rating</option>
                       <option value="1">1</option>

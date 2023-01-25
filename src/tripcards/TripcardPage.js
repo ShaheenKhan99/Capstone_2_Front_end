@@ -9,6 +9,7 @@ import TripcardBusinesses from "./TripcardBusinesses";
 import UpdateTripcardForm from "./UpdateTripcardForm";
 import useToggle from "../hooks/useToggle";
 import { formatDate } from '../common/Helpers';
+import FooterYelp from "../common/FooterYelp";
 import LoadingSpinner from "../common/LoadingSpinner";
 import "./TripcardPage.css";
 
@@ -159,6 +160,7 @@ const TripcardPage = ( updateTripcard ) => {
                 </Link>
               }
         </Container>
+        <FooterYelp />
       </div>
   );
 }

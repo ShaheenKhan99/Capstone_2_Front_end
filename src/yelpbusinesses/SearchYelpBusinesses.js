@@ -31,11 +31,12 @@ const SearchYelpBusinesses = (props) => {
 
           <div className="SearchYelpBusinesses-fields text-center">
             <input className="form-control form-control-md"
-                    placeholder="Enter a category" 
+                    placeholder="Restaurants, museums ..." 
                     onChange={handleTermChange} />
+
             <input  className="form-control form-control-md"
                     placeholder="Enter a city" 
-                   onChange={handleLocationChange} />
+                    onChange={handleLocationChange} />
           </div>
 
           <div className="SearchYelpBusinesses-search text-center">

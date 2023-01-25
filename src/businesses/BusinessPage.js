@@ -7,11 +7,12 @@ import TripcardsApi from "../api/api";
 import CreateTripcardForm from "../tripcards/CreateTripcardForm";
 import ReviewCardList from "../reviews/ReviewCardList";
 import AddReviewForm from "../reviews/AddReviewForm";
-import { getStars } from "../common/Helpers";
+import { getStars, getAverageRating } from "../common/Helpers";
 import useToggle from "../hooks/useToggle";
 import LoadingSpinner from "../common/LoadingSpinner";
-import Footer from "../common/Footer"
+import FooterYelp from "../common/FooterYelp"
 import noImage from "../assets/no_image.jpg";
+import StarRatings from "react-star-ratings";
 import "./BusinessPage.css";
 
 
@@ -222,8 +223,9 @@ import "./BusinessPage.css";
                           }
 
                           <Card.Text className="BusinessPage-categoryName lh-1">Category: {business.category_name}</Card.Text>
+
             
-                          <div className="mb-2">
+                          <div className="mb-2 mt-5">
                             <img src={getStars(business)} alt="star rating" />
                           </div> 
             
@@ -275,14 +277,37 @@ import "./BusinessPage.css";
                                 onClick={handleAddReviewClick}>
                           Write a review
                         </Button>
-                      </div>}
+                      </div>
+                    }
+
+                    {business.reviews.length ?
+                      <div className="mb-5">
+                        <StarRatings rating={getAverageRating(business)}
+                                      starRatedColor ="purple"
+                                      numberOfStars={5}
+                                      starDimension="1.3rem"
+                                      starSpacing="0.1rem" />
+
+                          {business.reviews.length == 1  ?  
+                            <Card.Text className="lh-1 mt-3">{business.reviews.length}{' '}Tripcards review</Card.Text> 
+                          :
+                            <Card.Text className="lh-1 mt-3">{business.reviews.length}{' '}Tripcards reviews</Card.Text>   
+                          }
+                      </div>
+                    :
+                      <div className="mt-5">
+                        <p>No Tripcards reviews</p>
+                      </div>
+                    }
+
+                    
                   </Col>  
                 </Row>     
                                   
               </Card>               
             </Container>           
 
-            <div className="AddReview-container mt-5 mb-5">
+            <div className="AddReview-container mt-2 mb-5">
               {isAddReview ? <AddReviewForm  key={id}
                                               id={id}
                                               addReview={addReview}
@@ -311,7 +336,7 @@ import "./BusinessPage.css";
                 }
           </Container>
       </div>
-      <Footer />
+      <FooterYelp />
     </>
   );
   

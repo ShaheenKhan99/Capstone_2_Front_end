@@ -8,7 +8,8 @@ import { getCorrectBusiness } from "../common/BusinessHelpers";
 import { fullDestination } from "../common/Helpers";
 import CreateTripcardForm from "../tripcards/CreateTripcardForm";
 import YelpBusinessReviews from "./YelpBusinessReviews";
-import { getStars } from '../common/Helpers';
+import { getStars } from "../common/Helpers";
+import FooterYelp from "../common/FooterYelp";
 import LoadingSpinner from "../common/LoadingSpinner";
 import noImage from "../assets/no_image.jpg";
 import "./YelpBusinessPage.css";
@@ -249,7 +250,8 @@ const YelpBusinessPage = () => {
               <h5 className="YelpBusinessePage-reviews text-center">Reviews from Yelp</h5>
               <YelpBusinessReviews reviews={yelpReviews} />
             </Container>
-          </div>
+          <FooterYelp />
+        </div>
   );
 }
 

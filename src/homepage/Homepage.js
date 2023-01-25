@@ -6,7 +6,7 @@ import SearchYelpBusinesses from "../yelpbusinesses/SearchYelpBusinesses";
 import LearnMoreModal from "./LearnMoreModal";
 import Alert from "../common/Alert";
 import useTimedMessage from "../hooks/useTimedMessage";
-import Footer from "../common/Footer";
+import FooterMain from "../common/FooterMain";
 import "./Homepage.css";
 
 
@@ -57,7 +57,7 @@ const Homepage = () => {
               : 
                 null }
 
-              <Footer />
+              <FooterMain />
     
           </div>      
         </>

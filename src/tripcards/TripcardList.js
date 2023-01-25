@@ -4,6 +4,7 @@ import { Container } from "react-bootstrap";
 import TripcardsApi from "../api/api";
 import SearchTripcards from "./SearchTripcards";
 import TripcardCardList from './TripcardCardList';
+import FooterMain from "../common/FooterMain";
 import LoadingSpinner from "../common/LoadingSpinner";
 import UserContext from "../auth/UserContext";
 
@@ -61,7 +62,8 @@ const TripcardList = () => {
                 </div>
               }
         </div>
-      </>
+      <FooterMain />
+    </>
   );
 }
 

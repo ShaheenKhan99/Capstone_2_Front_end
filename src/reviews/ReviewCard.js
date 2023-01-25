@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Card, Button } from "react-bootstrap";
+import StarRatings from "react-star-ratings";
 
 import { formatDate } from "../common/Helpers";
 import UserContext from "../auth/UserContext";
@@ -41,9 +42,14 @@ const ReviewCard = ({ id,
             
                 <Card.Title className="card-title">Review for {business_name} {' '} <span className="ReviewCard-username"> by {username}</span></Card.Title>
                 
-                <Card.Text className="lh-1">User rating: {rating} </Card.Text>
+                <StarRatings rating={Number(rating)}
+                                      starRatedColor ="purple"
+                                      numberOfStars={5}
+                                      starDimension="1.3rem"
+                                      starSpacing="0.1rem" />
 
-                <Card.Text className="lh-1">{text}</Card.Text>
+                
+                <Card.Text className="lh-1 mt-4">{text}</Card.Text>
 
                 {image_url ?  
                   <Card.Link href={image_url} target="_blank">See photo</Card.Link>
@@ -51,7 +57,7 @@ const ReviewCard = ({ id,
                   null 
                 }
 
-                <Card.Text className="ReviewCard-date mt-2">Created: {formatDate(created_on)}</Card.Text>
+                <Card.Text className="ReviewCard-date mt-2 text-muted">Reviewed on {formatDate(created_on)}</Card.Text>
 
               </Card.Body>   
             </Col>
@@ -78,10 +84,14 @@ const ReviewCard = ({ id,
           <Card className="ReviewCard-card"> 
             <Card.Body className="card-body">
               <Card.Title className="card-title">Review for {business_name} {' '} <span className="ReviewCard-username"> by {username}</span></Card.Title>
-                
-                <Card.Text className="lh-1">User rating:{' '} {rating} </Card.Text>
-
-                <Card.Text className="lh-1">{text}</Card.Text>
+              
+              <StarRatings rating={Number(rating)}
+                            starRatedColor ="purple"
+                            numberOfStars={5}
+                            starDimension="1.3rem"
+                            starSpacing="0.1rem" />
+          
+                <Card.Text className="lh-1 mt-5">{text}</Card.Text>
                 
                 <Card.Text className="text-muted lh-1">Created: {formatDate(created_on)}</Card.Text>
 

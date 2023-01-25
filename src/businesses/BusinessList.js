@@ -4,7 +4,7 @@ import { Container, Card, Row, Col } from "react-bootstrap";
 
 import SearchDBBusinesses from "./SearchDBBusinesses";
 import BusinessCard from "./BusinessCard";
-import Footer from "../common/Footer"
+import FooterMain from "../common/FooterMain"
 import LoadingSpinner from "../common/LoadingSpinner";
 import TripcardsApi from "../api/api";
 
@@ -99,7 +99,7 @@ const BusinessList = () => {
               }
               
           </Container>
-          <Footer />
+          <FooterMain />
       </>
   );
 }

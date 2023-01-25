@@ -7,7 +7,7 @@
 
 #### **Features:**
 - Any user can search by category and destination for places and view the results on the homepage
-- A user can create a secure user account that uses the B-crypt hash
+- A user can create a secure user account that uses the B-crypt hash to perform encryption to increase password safety
 - A logged in user can:
   - search by category and/or destination to view places saved by other users 
   - search by username or destination to view tripcards for other users  
@@ -19,6 +19,16 @@
   - edit/delete their tripcard/s
   - edit/delete their profile
   - write/edit/delete reviews for any place saved by users
+- There is no user interface directly on the site to create admin users. Admin users can be created through the interactive PSQL shell only. 
+- Admin users can:
+  - create, update and delete users 
+  - update and delete tripcards 
+  - update and delete reviews
+  - update and delete categories 
+  - update and delete businesses 
+  - update and delete destinations
+  
+
 
 
 ### **Data source**

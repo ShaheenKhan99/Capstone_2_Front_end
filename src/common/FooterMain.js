@@ -6,7 +6,7 @@ import "./Footer.css";
 
 /** Displays photo and Yelp api data credits on homepage */
 
-const Footer = () => {
+const FooterMain = () => {
 
     return(
             <Container className="Footer-credits mt-5">
@@ -30,7 +30,6 @@ const Footer = () => {
                   Photo by <a href="https://unsplash.com/@victor_g?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Victor</a> {' '}
                   on {' '}
                   <a href="https://unsplash.com/wallpapers/travel/city?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  
                   </p> 
                    
                 </Col>  
@@ -41,4 +40,4 @@ const Footer = () => {
         );
   }
 
-  export default Footer;
+  export default FooterMain;

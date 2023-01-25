@@ -67,47 +67,51 @@ const SignupForm = ({ signup }) => {
               <div className="form-group mb-2">
                 <label className="label" htmlFor="username">Username</label>
                   <input name="username"
-                          className="form-control"
-                          value={formData.username}
-                          onChange={handleChange}
-                          required
+                         type="text"
+                         className="form-control"
+                         value={formData.username}
+                         onChange={handleChange}
+                         required
                   />
               </div>
               <div className="form-group mb-2">
                 <label className="label" htmlFor="password">Password</label>
                   <input name="password"
-                          className="form-control"
-                          value={formData.password}
-                          onChange={handleChange}
-                          required
+                         className="form-control"
+                         type="password"
+                         value={formData.password}
+                         onChange={handleChange}
+                         required
                   />
               </div>
               <div className="form-group mb-2">
                 <label className="label" htmlFor="first_name">First name</label>
                   <input name="first_name"
-                          className="form-control"
-                          value={formData.first_name}
-                          onChange={handleChange}
-                          required
+                         type="text"
+                         className="form-control"
+                         value={formData.first_name}
+                         onChange={handleChange}
+                         required
                   />
               </div>
               <div className="form-group mb-2">
                 <label className="label" htmlFor="last_name">Last name</label>
                   <input name="last_name"
-                          className="form-control"
-                          value={formData.last_name}
-                          onChange={handleChange}
-                          required
+                         type="text"
+                         className="form-control"
+                         value={formData.last_name}
+                         onChange={handleChange}
+                         required
                   />
               </div>
               <div className="form-group mb-2">
                 <label className="label" htmlFor="email">Email</label>
                   <input name="email"
-                          type="email"
-                          className="form-control"
-                          value={formData.email}
-                          onChange={handleChange}
-                          required
+                         type="email"
+                         className="form-control"
+                         value={formData.email}
+                         onChange={handleChange}
+                         required
                   />
               </div>
               <div className="form-group mb-3">
