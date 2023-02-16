@@ -1,3 +1,5 @@
+import React from "react";
+
 /** Presentational component for showing bootstrap style alerts.
  * 
  * { LoginForm, SignupForm, ProfileForm } -> Alert
