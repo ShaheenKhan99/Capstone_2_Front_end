@@ -76,7 +76,7 @@ const BusinessList = () => {
                                   image_url={business.image_url}
                                   url={business.url}
                                   rating={business.rating}
-                                  review_count={business.yelpreview_count}
+                                  review_count={business.yelpReview_count}
                                   category_name={business.category_name}
                                   category_id={business.category_id}
                                   destination_id={business.destination_id}

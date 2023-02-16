@@ -229,7 +229,7 @@ import "./BusinessPage.css";
                             <img src={getStars(business)} alt="star rating" />
                           </div> 
             
-                          <Card.Text className="lh-1">{business.yelpreview_count}{' '}Yelp reviews</Card.Text>    
+                          <Card.Text className="lh-1">{business.yelpReview_count}{' '}Yelp reviews</Card.Text>    
      
                           <div className="mb-4">
                             <Card.Link  href={business.url} 
