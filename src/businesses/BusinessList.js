@@ -55,7 +55,7 @@ const BusinessList = () => {
             {businesses.length ? (
               <Row className="BusinessList-row gy-4">
                 {businesses.map((business) => (
-                  <Col xs={6} md={4} className="BusinessList-col">
+                  <Col xs={12} md={4} className="BusinessList-col">
 
                     <Link className="BusinessCard-card" 
                           to={`/businesses/${business.id}`}
